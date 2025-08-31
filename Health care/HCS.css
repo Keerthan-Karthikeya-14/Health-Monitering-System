@@ -1,0 +1,153 @@
+*{
+    margin:0px;
+    padding:0px;
+    cursor: pointer;
+}
+.main{
+    background-color: #c8e2e8;
+    background-size:cover;
+    background-position:center;
+    height:100vh;
+    width:100vw;
+}
+.icon{
+    display: flex;
+    align-items: center;
+    padding-bottom: 0;
+    width: auto;
+    float: none;
+    height: auto;
+}
+
+.logo{
+    width:110px;
+    height:80px;
+    margin-left:10px;
+    border-radius: 50%;
+   
+
+}
+.navbar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    background-color: white;
+    width: 100vw;
+}
+
+.menu{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: auto;
+    height: auto;
+    background: none;
+    color: inherit;
+    float: none;
+  margin-top:20px;
+}
+ul {
+    display:flex;
+    gap:40px;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+}
+ul li{
+    list-style: none;
+    margin:0;
+    padding:0;
+}
+ul li a{
+    font-family: arial;
+    font-weight: bold;
+    color:black;
+    transition:0.2s ;
+    font-size:18px;
+    text-decoration:none;
+    padding:10px 20px;
+    border-radius:4px;
+}
+ul li a:hover{
+    color:skyblue;
+}
+
+.logoutdemo{
+margin-right: 20px;
+border:none;
+}
+
+.logoutbutton{
+     height:40px;
+     width:100px;
+     background-color:#03befc;
+     border-radius:10%;
+     transition: 0.2s;
+     border: none;
+     font-size: medium;
+     font-family:normal;
+}
+.logoutdemo :hover{
+    background-color:white ;
+    border: none;
+}
+.container{
+    text-align: center;
+    margin-top: 120px;
+
+}
+.page1button1{
+    color:white;
+    background-color:#03befc ;
+    font-size:15px;
+    height:40px;
+    width:200px;
+    border-radius:7px;
+    border:none;
+    margin-top:30px;
+    transition:0.5s;
+    cursor: pointer;
+
+}
+.page1button1:hover{
+    background-color:white;
+    color:#03befc;
+}
+.page1button2{
+    color:#03befc;
+    background-color:white;
+    font-size:15px;
+    height:40px;
+    width:200px;
+    border-radius:7px;
+    border:none;
+    margin-left:20px;
+    cursor:pointer;
+    transition:0.5s;
+    border:#03befc 2px solid;
+
+}
+.page1button2:hover{
+    background-color:#03befc;
+    color:white;
+}
+.page1title{
+    font-family:normal;
+    font-size:60px;
+    color:#2b6975
+
+}
+.page1title2{
+    font-family:normal;
+    font-size:40px;
+    color:#08aacc;
+}
+.page1paragraph{
+    font-family:normal;
+    font-size:20px;
+    color:black;
+    margin-top:3px;
+}
+
