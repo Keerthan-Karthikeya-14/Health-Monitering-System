@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Health Monitoring System</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                <span>HealthTrack</span>
+            </div>
+        </div>
+        
+        <div class="navbar-center">
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search..." id="searchInput">
+            </div>
+        </div>
+        
+        <div class="navbar-actions">
+            <button class="icon-btn" id="themeToggle" title="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="icon-btn" id="notificationBtn" title="Notifications">
+                <i class="fas fa-bell"></i>
+                <span class="badge">3</span>
+            </button>
+            <div class="user-menu">
+                <button class="user-avatar" id="userMenuBtn">
+                    <span id="userInitials">JD</span>
+                </button>
+                <div class="dropdown-menu" id="userDropdown">
+                    <a href="#"><i class="fas fa-user"></i> Profile</a>
+                    <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+                    <hr>
+                    <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="my-records.html" class="nav-item">
+                    <i class="fas fa-file-medical"></i>
+                    <span>My Records</span>
+                </a>
+                <a href="reports.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="settings.html" class="nav-item active">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h1>Settings</h1>
+                    <p>Manage your account and preferences</p>
+                </div>
+            </div>
+
+            <!-- Settings Sections -->
+            <div class="settings-container">
+                <!-- Profile Settings -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <h3><i class="fas fa-user"></i> Profile Information</h3>
+                    </div>
+                    <form id="profileForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profileName">Full Name</label>
+                                <input type="text" id="profileName" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="profileEmail">Email</label>
+                                <input type="email" id="profileEmail" name="email" required disabled>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profileAge">Age</label>
+                                <input type="number" id="profileAge" name="age" min="1" max="120" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="profileGender">Gender</label>
+                                <select id="profileGender" name="gender" required>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profileContact">Contact Number</label>
+                            <input type="tel" id="profileContact" name="contact" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Appearance Settings -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <h3><i class="fas fa-palette"></i> Appearance</h3>
+                    </div>
+                    <div class="settings-option">
+                        <div class="option-info">
+                            <h4>Dark Mode</h4>
+                            <p>Switch between light and dark theme</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="darkModeToggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Notification Settings -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <h3><i class="fas fa-bell"></i> Notifications</h3>
+                    </div>
+                    <div class="settings-option">
+                        <div class="option-info">
+                            <h4>Email Notifications</h4>
+                            <p>Receive health reminders via email</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="emailNotifications" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-option">
+                        <div class="option-info">
+                            <h4>Health Alerts</h4>
+                            <p>Get notified about important health metrics</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="healthAlerts" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-option">
+                        <div class="option-info">
+                            <h4>Weekly Summary</h4>
+                            <p>Receive weekly health summary reports</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="weeklySummary" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Privacy & Security -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <h3><i class="fas fa-shield-alt"></i> Privacy & Security</h3>
+                    </div>
+                    <div class="settings-option">
+                        <div class="option-info">
+                            <h4>Change Password</h4>
+                            <p>Update your account password</p>
+                        </div>
+                        <button class="btn btn-secondary" id="changePasswordBtn">
+                            <i class="fas fa-key"></i> Change
+                        </button>
+                    </div>
+                    <div class="settings-option">
+                        <div class="option-info">
+                            <h4>Two-Factor Authentication</h4>
+                            <p>Add an extra layer of security</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="twoFactorAuth">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Data Management -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <h3><i class="fas fa-database"></i> Data Management</h3>
+                    </div>
+                    <div class="settings-option">
+                        <div class="option-info">
+                            <h4>Export Data</h4>
+                            <p>Download all your health records</p>
+                        </div>
+                        <button class="btn btn-secondary" id="exportDataBtn">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                    </div>
+                    <div class="settings-option">
+                        <div class="option-info">
+                            <h4>Clear All Data</h4>
+                            <p>Permanently delete all your records</p>
+                        </div>
+                        <button class="btn btn-danger" id="clearDataBtn">
+                            <i class="fas fa-trash"></i> Clear Data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- About -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <h3><i class="fas fa-info-circle"></i> About</h3>
+                    </div>
+                    <div class="about-content">
+                        <p><strong>HealthTrack</strong> - Your Personal Health Monitoring System</p>
+                        <p>Version 1.0.0</p>
+                        <p>© 2024 HealthTrack. All rights reserved.</p>
+                        <div class="about-links">
+                            <a href="#"><i class="fas fa-file-alt"></i> Privacy Policy</a>
+                            <a href="#"><i class="fas fa-file-contract"></i> Terms of Service</a>
+                            <a href="#"><i class="fas fa-question-circle"></i> Help & Support</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal" id="passwordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change Password</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" id="currentPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmNewPassword">Confirm New Password</label>
+                    <input type="password" id="confirmNewPassword" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/storage.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/validation.js"></script>
+    <script src="../js/crud.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/interactions.js"></script>
+    <script>
+        let currentUser;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check authentication
+            const userStr = sessionStorage.getItem('currentUser');
+            if (!userStr) {
+                window.location.href = '../auth/login.html';
+                return;
+            }
+
+            currentUser = JSON.parse(userStr);
+            initializePage();
+        });
+
+        function initializePage() {
+            loadUserProfile();
+            loadPreferences();
+            initializeEventListeners();
+            setUserInfo();
+        }
+
+        function setUserInfo() {
+            const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+            document.getElementById('userInitials').textContent = initials;
+        }
+
+        function loadUserProfile() {
+            const user = StorageService.findUserByEmail(currentUser.email);
+            if (user) {
+                document.getElementById('profileName').value = user.name;
+                document.getElementById('profileEmail').value = user.email;
+                document.getElementById('profileAge').value = user.age;
+                document.getElementById('profileGender').value = user.gender;
+                document.getElementById('profileContact').value = user.contact;
+            }
+        }
+
+        function loadPreferences() {
+            const preferences = StorageService.getUserPreferences(currentUser.id);
+            if (preferences) {
+                document.getElementById('darkModeToggle').checked = preferences.theme === 'dark';
+                document.getElementById('emailNotifications').checked = preferences.emailNotifications !== false;
+                document.getElementById('healthAlerts').checked = preferences.healthAlerts !== false;
+                document.getElementById('weeklySummary').checked = preferences.weeklySummary !== false;
+            }
+        }
+
+        function initializeEventListeners() {
+            // Profile form
+            document.getElementById('profileForm').addEventListener('submit', handleProfileUpdate);
+
+            // Theme toggle
+            document.getElementById('darkModeToggle').addEventListener('change', handleThemeToggle);
+
+            // Notification toggles
+            document.getElementById('emailNotifications').addEventListener('change', savePreferences);
+            document.getElementById('healthAlerts').addEventListener('change', savePreferences);
+            document.getElementById('weeklySummary').addEventListener('change', savePreferences);
+
+            // Password change
+            document.getElementById('changePasswordBtn').addEventListener('click', () => {
+                document.getElementById('passwordModal').classList.add('show');
+            });
+
+            document.getElementById('passwordForm').addEventListener('submit', handlePasswordChange);
+
+            // Data management
+            document.getElementById('exportDataBtn').addEventListener('click', exportAllData);
+            document.getElementById('clearDataBtn').addEventListener('click', confirmClearData);
+
+            // Modal close
+            document.querySelectorAll('.modal-close').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.modal').forEach(modal => {
+                        modal.classList.remove('show');
+                    });
+                });
+            });
+
+            // Logout
+            document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                AuthService.logout();
+            });
+
+            // Menu toggle
+            document.getElementById('menuToggle').addEventListener('click', () => {
+                document.getElementById('sidebar').classList.toggle('show');
+            });
+
+            // User menu
+            document.getElementById('userMenuBtn').addEventListener('click', () => {
+                document.getElementById('userDropdown').classList.toggle('show');
+            });
+        }
+
+        function handleProfileUpdate(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const updatedData = {
+                name: formData.get('name'),
+                age: parseInt(formData.get('age')),
+                gender: formData.get('gender'),
+                contact: formData.get('contact')
+            };
+
+            try {
+                const users = StorageService.getUsers();
+                const userIndex = users.findIndex(u => u.email === currentUser.email);
+                
+                if (userIndex !== -1) {
+                    users[userIndex] = { ...users[userIndex], ...updatedData };
+                    localStorage.setItem('users', JSON.stringify(users));
+                    
+                    // Update session
+                    currentUser.name = updatedData.name;
+                    sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    
+                    Utils.showToast('Profile updated successfully', 'success');
+                    setUserInfo();
+                }
+            } catch (error) {
+                Utils.showToast('Failed to update profile', 'error');
+            }
+        }
+
+        function handleThemeToggle(e) {
+            const isDark = e.target.checked;
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            savePreferences();
+            Utils.showToast(`${isDark ? 'Dark' : 'Light'} mode enabled`, 'success');
+        }
+
+        function savePreferences() {
+            const preferences = {
+                theme: document.getElementById('darkModeToggle').checked ? 'dark' : 'light',
+                emailNotifications: document.getElementById('emailNotifications').checked,
+                healthAlerts: document.getElementById('healthAlerts').checked,
+                weeklySummary: document.getElementById('weeklySummary').checked
+            };
+
+            StorageService.setUserPreferences(currentUser.id, preferences);
+        }
+
+        function handlePasswordChange(e) {
+            e.preventDefault();
+            
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmNewPassword').value;
+
+            if (newPassword !== confirmPassword) {
+                Utils.showToast('Passwords do not match', 'error');
+                return;
+            }
+
+            const validation = Validator.validatePassword(newPassword);
+            if (!validation.valid) {
+                Utils.showToast(validation.message, 'error');
+                return;
+            }
+
+            // In a real app, verify current password
+            Utils.showToast('Password updated successfully', 'success');
+            document.getElementById('passwordModal').classList.remove('show');
+            document.getElementById('passwordForm').reset();
+        }
+
+        function exportAllData() {
+            const recordManager = new HealthRecordManager();
+            recordManager.exportRecordsJSON();
+            Utils.showToast('Data exported successfully', 'success');
+        }
+
+        function confirmClearData() {
+            if (confirm('Are you sure you want to delete all your health records? This action cannot be undone.')) {
+                if (confirm('This will permanently delete ALL your data. Are you absolutely sure?')) {
+                    StorageService.setHealthRecords(currentUser.id, []);
+                    Utils.showToast('All data cleared successfully', 'success');
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .page-header {
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .settings-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 900px;
+        }
+
+        .settings-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .settings-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .settings-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-primary);
+            font-size: 1.25rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .settings-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .settings-option:last-child {
+            border-bottom: none;
+        }
+
+        .option-info h4 {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .option-info p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        .toggle-switch input:checked + .toggle-slider {
+            background-color: var(--primary-color);
+        }
+
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        .about-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .about-content p {
+            margin-bottom: 0.5rem;
+        }
+
+        .about-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .about-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .about-links a:hover {
+            color: var(--primary-dark);
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #E53E3E;
+        }
+
+        @media (max-width: 768px) {
+            .settings-option {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

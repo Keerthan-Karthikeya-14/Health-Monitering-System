@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Monitoring System - Home</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+    <div class="loading-container">
+        <div class="loader"></div>
+        <p>Loading Health Monitoring System...</p>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/storage.js" defer></script>
+    <script src="js/utils.js" defer></script>
+    <script>
+        // Router logic - redirect based on authentication
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentUser = sessionStorage.getItem('currentUser');
+            
+            if (currentUser) {
+                // User is logged in, redirect to dashboard
+                window.location.href = 'dashboard/dashboard.html';
+            } else {
+                // User is not logged in, redirect to login
+                window.location.href = 'auth/login.html';
+            }
+        });
+    </script>
+</body>
+</html>

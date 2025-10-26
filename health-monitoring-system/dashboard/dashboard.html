@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Health Monitoring System</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                <span>HealthTrack</span>
+            </div>
+        </div>
+        
+        <div class="navbar-center">
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search..." id="searchInput">
+            </div>
+        </div>
+        
+        <div class="navbar-actions">
+            <button class="icon-btn" id="themeToggle" title="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="icon-btn" id="notificationBtn" title="Notifications">
+                <i class="fas fa-bell"></i>
+                <span class="badge">3</span>
+            </button>
+            <div class="user-menu">
+                <button class="user-avatar" id="userMenuBtn">
+                    <span id="userInitials">JD</span>
+                </button>
+                <div class="dropdown-menu" id="userDropdown">
+                    <a href="#"><i class="fas fa-user"></i> Profile</a>
+                    <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+                    <hr>
+                    <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="my-records.html" class="nav-item">
+                    <i class="fas fa-file-medical"></i>
+                    <span>My Records</span>
+                </a>
+                <a href="reports.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <div class="welcome-text">
+                    <h1 id="greeting">Good Morning, <span id="userName">User</span>! 👋</h1>
+                    <p id="currentDate">Loading...</p>
+                </div>
+                <div class="health-score-card">
+                    <div class="score-circle">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#E2E8F0" stroke-width="8"/>
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#87CEEB" stroke-width="8" 
+                                    stroke-dasharray="283" stroke-dashoffset="70" 
+                                    stroke-linecap="round" id="scoreCircle"/>
+                            <text x="50" y="55" text-anchor="middle" font-size="24" font-weight="bold" fill="#2D3748" id="scoreValue">85</text>
+                        </svg>
+                    </div>
+                    <div class="score-info">
+                        <h3>Health Score</h3>
+                        <p class="score-status">Excellent</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Grid -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon heart">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Heart Rate</h4>
+                        <p class="stat-value" id="heartRate">72 <span>BPM</span></p>
+                        <span class="stat-trend up">↑ 2%</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon pressure">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Blood Pressure</h4>
+                        <p class="stat-value" id="bloodPressure">120/80 <span>mmHg</span></p>
+                        <span class="stat-trend stable">→ Normal</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon steps">
+                        <i class="fas fa-walking"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Steps Today</h4>
+                        <p class="stat-value" id="steps">8,543</p>
+                        <span class="stat-trend up">↑ 12%</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon appointments">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Appointments</h4>
+                        <p class="stat-value" id="appointments">2 <span>upcoming</span></p>
+                        <span class="stat-trend">Next: Oct 28</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Charts Section -->
+            <section class="charts-section">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Heart Rate Trend</h3>
+                        <div class="chart-controls">
+                            <button class="btn-sm active">Week</button>
+                            <button class="btn-sm">Month</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="heartRateChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Activity Overview</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="activityChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Records -->
+            <section class="recent-records">
+                <div class="section-header">
+                    <h3>Recent Health Records</h3>
+                    <a href="my-records.html" class="btn-link">View All →</a>
+                </div>
+                <div class="records-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Value</th>
+                                <th>Notes</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recordsTableBody">
+                            <tr>
+                                <td colspan="5" class="text-center">Loading records...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- FAB -->
+    <button class="fab" id="addRecordFab" title="Add new record">
+        <i class="fas fa-plus"></i>
+    </button>
+
+    <!-- Add Record Modal -->
+    <div class="modal" id="addRecordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Health Record</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="addRecordForm">
+                <div class="form-group">
+                    <label for="recordType">Type</label>
+                    <select id="recordType" name="type" required>
+                        <option value="">Select type</option>
+                        <option value="heart_rate">Heart Rate</option>
+                        <option value="blood_pressure">Blood Pressure</option>
+                        <option value="blood_sugar">Blood Sugar</option>
+                        <option value="temperature">Temperature</option>
+                        <option value="weight">Weight</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="recordValue">Value</label>
+                    <input type="text" id="recordValue" name="value" required>
+                </div>
+                <div class="form-group">
+                    <label for="recordUnit">Unit</label>
+                    <input type="text" id="recordUnit" name="unit" placeholder="e.g., BPM, mmHg">
+                </div>
+                <div class="form-group">
+                    <label for="recordNotes">Notes</label>
+                    <textarea id="recordNotes" name="notes" rows="3"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/validation.js"></script>
+    <script src="../js/crud.js"></script>
+    <script src="../js/data.js"></script>
+    <script src="../js/charts.js"></script>
+    <script src="../js/interactions.js"></script>
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>
