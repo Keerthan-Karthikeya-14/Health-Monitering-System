@@ -1,24 +1,24 @@
-# 🏥 Health Monitoring System
+# Health Monitoring System
 
 A complete, production-ready Health Monitoring System built with modern web technologies. Features a beautiful sky blue theme, comprehensive health tracking, and AI-powered insights.
 
-## ✨ Features
+## Features
 
-### 🔐 Authentication System
+### Authentication System
 - **User Registration** with validation
 - **Secure Login** with session management
 - **Password Strength Meter**
 - **Remember Me** functionality
 - **Session-based Authentication**
 
-### 📊 Dashboard
+### Dashboard
 - **Health Score Visualization** with animated circular progress
 - **Real-time Health Metrics** (Heart Rate, Blood Pressure, Steps, Appointments)
 - **Interactive Charts** using Chart.js
 - **Recent Records Table** with quick actions
 - **Responsive Design** for all devices
 
-### 📝 Health Records Management (CRUD)
+### Health Records Management (CRUD)
 - **Create** new health records with multiple types
 - **Read** and filter records by type and date
 - **Update** existing records
@@ -26,21 +26,21 @@ A complete, production-ready Health Monitoring System built with modern web tech
 - **Export** data as JSON or CSV
 - **Record Types**: Heart Rate, Blood Pressure, Blood Sugar, Temperature, Weight, Oxygen Level, Sleep
 
-### 📈 Reports & Analytics
+### Reports & Analytics
 - **Health Trends** visualization
 - **Record Distribution** charts
 - **Monthly Activity** tracking
 - **AI-Powered Insights** (simulated)
 - **Summary Statistics**
 
-### ⚙️ Settings
+### Settings
 - **Profile Management**
 - **Theme Toggle** (Light/Dark mode)
 - **Notification Preferences**
 - **Privacy & Security** options
 - **Data Export/Clear** functionality
 
-## 🎨 Design Features
+##  Design Features
 
 - **Sky Blue Theme** (#87CEEB) with professional medical aesthetics
 - **Smooth Animations** and transitions
@@ -49,7 +49,7 @@ A complete, production-ready Health Monitoring System built with modern web tech
 - **Accessible** with ARIA labels and semantic HTML
 - **Modern UI Components**: Cards, Modals, Toasts, FAB buttons
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **HTML5** - Semantic markup
@@ -64,7 +64,7 @@ A complete, production-ready Health Monitoring System built with modern web tech
 - **SessionStorage** - Active user sessions
 - **No Backend Required** - Fully client-side
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 health-monitoring-system/
@@ -99,7 +99,7 @@ health-monitoring-system/
     └── icons/                # Custom icons (if any)
 ```
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - Modern web browser (Chrome, Firefox, Safari, Edge)
@@ -186,7 +186,7 @@ health-monitoring-system/
    - Change password
    - Export or clear data
 
-## 🔒 Security Features
+## Security Features
 
 - **Password Hashing** (Base64 - upgrade to bcrypt for production)
 - **Session Management** with SessionStorage
@@ -194,13 +194,13 @@ health-monitoring-system/
 - **XSS Prevention** with sanitization
 - **CSRF Protection** (client-side only)
 
-## 📱 Responsive Breakpoints
+## Responsive Breakpoints
 
 - **Mobile**: < 768px
 - **Tablet**: 768px - 1024px
 - **Desktop**: > 1024px
 
-## 🎯 Key JavaScript Classes
+## Key JavaScript Classes
 
 ### `StorageService`
 Manages all localStorage and sessionStorage operations
@@ -243,7 +243,7 @@ Utils.formatDate(date, format)
 Utils.getGreeting()
 ```
 
-## 🎨 Color Palette
+## Color Palette
 
 ```css
 --primary-color: #87CEEB;      /* Sky Blue */
@@ -259,7 +259,7 @@ Utils.getGreeting()
 --card-bg: #FFFFFF;            /* White */
 ```
 
-## 🔧 Customization
+## Customization
 
 ### Changing Theme Colors
 Edit `css/variables.css` or `css/dashboard.css`:
@@ -275,7 +275,7 @@ Edit `js/crud.js` and add to the record type options in HTML forms.
 ### Modifying Health Score Calculation
 Edit the `calculateHealthScore()` function in `js/dashboard.js`.
 
-## 🐛 Known Limitations
+##  Known Limitations
 
 - **Client-Side Only**: All data stored in browser (cleared on cache clear)
 - **No Real Backend**: No server-side validation or database
@@ -283,7 +283,7 @@ Edit the `calculateHealthScore()` function in `js/dashboard.js`.
 - **No Email Verification**: Registration doesn't send verification emails
 - **Limited AI Insights**: Insights are simulated, not real AI
 
-## 🚀 Future Enhancements
+##  Future Enhancements
 
 - [ ] Backend integration with Node.js/Express
 - [ ] Real database (MongoDB/PostgreSQL)
@@ -296,19 +296,19 @@ Edit the `calculateHealthScore()` function in `js/dashboard.js`.
 - [ ] PWA (Progressive Web App) support
 - [ ] Real AI/ML health insights
 
-## 📄 License
+## License
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 👨‍💻 Developer
+##  Developer
 
-Created with ❤️ for health monitoring and tracking.
+Created with  for health monitoring and tracking.
 
-## 🤝 Contributing
+## Contributing
 
 Contributions, issues, and feature requests are welcome!
 
-## 📞 Support
+## Support
 
 For support, email your-email@example.com or open an issue in the repository.
 
