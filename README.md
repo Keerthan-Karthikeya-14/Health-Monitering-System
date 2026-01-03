@@ -6,7 +6,6 @@ ________________________________________
 •	To design a secure login-based system for health data tracking.
 •	To allow users to manually input and manage health vitals (CRUD operations).
 •	To display health data in interactive dashboards with charts and alerts.
-•	To include an AI-driven health assistant bot for personalized suggestions.
 •	To provide report generation (PDF/CSV) for easy health history tracking.
 •	To ensure a professional, user-friendly interface with responsive design.
 ________________________________________
