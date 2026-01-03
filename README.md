@@ -10,14 +10,4 @@ ________________________________________
 •	To provide report generation (PDF/CSV) for easy health history tracking.
 •	To ensure a professional, user-friendly interface with responsive design.
 ________________________________________
- 3. Tech Stack
-Frontend (UI):
-•	React.js → Dynamic components, charts, and dashboard.
-•	HTML, CSS, TailwindCSS/Bootstrap → Styling & layout.
-•	Chart.js / Recharts → Graphs and data visualization.
-•	FontAwesome / Material Icons → Icons for UI clarity.
-Backend (APIs):
-•	Java (Spring Boot) → REST API services for authentication, CRUD, and reports.
-•	Spring Security / JWT → Authentication & secure session handling.
-Database:
-•	MySQL / PostgreSQL → Store user profiles, health data, and history.
+ 3. Tech Stack : HTML , CSS , JAVASCRIPT , BOOTSTARP
