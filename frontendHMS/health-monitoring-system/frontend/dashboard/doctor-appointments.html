@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Appointments - Doctor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/doctor-dashboard.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <nav class="navbar" aria-label="Top Navigation Bar">
+        <div class="navbar-brand">
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo" aria-label="HealthTrack logo">
+                <img src="https://res.cloudinary.com/dwren15bt/image/upload/v1761837624/Screenshot_2025-10-29_224358_tvdeop.png" class="main-logo" alt="HealthTrack"/>
+                <span>HealthTrack</span>
+            </div>
+        </div>
+        <div class="navbar-center"></div>
+        <div class="navbar-actions">
+            <button class="logout-button" id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar" aria-label="Sidebar Navigation">
+            <nav class="sidebar-nav" role="navigation">
+                <a href="doctor-dashboard.html" class="nav-item">
+                    <i class="fas fa-user-md"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="doctor-appointments.html" class="nav-item active">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>My Appointments</span>
+                </a>
+                <a href="#" class="nav-item" id="navSettings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <!-- Tabs for Pending and Completed -->
+            <div class="appointments-tabs">
+                <button class="tab-btn active" data-tab="pending">Pending Appointments</button>
+                <button class="tab-btn" data-tab="completed">Completed Appointments</button>
+            </div>
+
+            <!-- Pending Appointments Section -->
+            <section class="appointments-section tab-content active" id="pending-section" aria-labelledby="pendingHeading">
+                <div class="section-header">
+                    <h3 id="pendingHeading">Pending Appointments</h3>
+                    <div class="filters">
+                        <label for="statusFilter" class="sr-only">Filter by status</label>
+                        <select id="statusFilter" aria-label="Filter by status">
+                            <option value="all">All Statuses</option>
+                            <option value="upcoming">Upcoming</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="appointments-table" role="region" aria-live="polite">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Patient</th>
+                                <th scope="col">Date/Time</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Suggestion/Notes</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="appointmentsBody">
+                            <tr>
+                                <td colspan="6" class="text-center">Loading appointments...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Completed Appointments Section -->
+            <section class="appointments-section tab-content" id="completed-section" aria-labelledby="completedHeading">
+                <div class="section-header">
+                    <h3 id="completedHeading">Completed Appointments</h3>
+                    <div class="search-box">
+                        <input type="text" id="completedSearch" placeholder="Search by patient name..." />
+                    </div>
+                </div>
+                <div class="appointments-table" role="region" aria-live="polite">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Patient</th>
+                                <th scope="col">Date/Time</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Suggestion</th>
+                                <th scope="col">Completed On</th>
+                            </tr>
+                        </thead>
+                        <tbody id="completedAppointmentsBody">
+                            <tr>
+                                <td colspan="5" class="text-center">Loading completed appointments...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="modal" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="settingsTitle">Doctor Settings</h3>
+                <button class="modal-close" aria-label="Close settings">&times;</button>
+            </div>
+            <form id="doctorSettingsForm">
+                <div class="form-group">
+                    <label for="contactInput">Contact</label>
+                    <input type="text" id="contactInput" name="contact" placeholder="+1234567890" required>
+                    <div class="error-message" id="contactError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="passwordInput">New Password</label>
+                    <input type="password" id="passwordInput" name="password" placeholder="••••••••">
+                    <div class="error-message" id="passwordError"></div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/validation.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/doctor-appointments.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,198 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body {
+    /* background: #f7fafd; */
+    background-image:url("https://res.cloudinary.com/dwren15bt/image/upload/v1758599177/untitled-0_hvcon8.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+.navbar {
+    width: 100%;
+    /* background: #2196f3; */
+    padding: 0.7rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    /* box-shadow: 0 2px 8px rgba(0,0,0,0.07); */
+}
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left:62.5%;
+    margin-top:53px;
+}
+.navbar-logo img {
+    width:60px;
+    height: 60px;
+    border-radius: 50%;
+    /* background: #fff; */
+    object-fit: contain;
+    margin-right: 10px;
+}
+.navbar-title {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background: #f7fafd; */
+}
+.loginbox{
+    width: 800px;
+    height: 500px;
+    /* background: skyblue; */
+    color: #ffffff;
+    margin-top: 60px;
+    box-sizing: border-box;
+    padding: 70px 30px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    left:39%;
+}
+form{
+    text-align:center;
+    width:500px;
+    margin: 0 auto;
+}
+.loginheading{
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 22px;
+}
+.loginbutton{
+   width:150px;
+   height:25px;
+}
+.loginbuttons{
+    text-align: center;
+    margin-top:20px;
+    border-radius:5px;
+}
+/* Input Box Style */
+.input-box {
+  position: relative;
+  width: 100%;
+  margin: 15px 0;
+}
+.input-box i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: gray;
+  font-size: 18px;
+}
+.input-box .fa-user,
+.input-box .fa-lock {
+  left: 15px;
+}
+.input-box .fa-eye {
+  right: 15px;
+  cursor: pointer;
+}
+.input-box input {
+  width: 100%;
+  padding: 12px 45px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  background: white;
+  font-size: 16px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.forgetbutton{
+    text-decoration: none;
+    color:white;
+    margin-top:50px; 
+    transition:0.5s;
+}
+.forgetbutton:hover{
+    color:#03a9f4;
+    cursor:pointer;
+}
+.loginbutton1{
+  height:30px;
+  width:180px;
+  border-radius:25px;
+  border:none;
+  outline:none;
+  transition:0.5s;
+  background-color:white;
+}
+.loginbutton2{
+   height:30px;
+  width:180px;
+  border-radius:25px;
+  border:none;
+  outline:none;
+  transition:0.5s;
+  background-color:#03a9f4;
+}
+
+.loginbutton2:hover{
+    background-color:white;
+    color:#03a9f4;
+    cursor:pointer;
+}
+
+/* Add to login.css */
+.google-login {
+    text-align: center;
+    margin-bottom: 20px;
+     padding-top:20px;
+}
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    color: #444;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: background 0.2s;
+    margin: 0 auto;
+   
+}
+.google-btn:hover {
+    background: #f1f1f1;
+}
+.google-icon {
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .loginbox {
+        width: 95vw;
+        padding: 40px 10px;
+    }
+    form {
+        width: 90vw;
+    }
+}

@@ -1,0 +1,6 @@
+backend\DBConnection.class
+backend\AuthController$RegisterHandler.class
+backend\AuthController$LoginHandler.class
+backend\UserDAO.class
+backend\AuthController$CorsHandler.class
+backend\AuthController.class

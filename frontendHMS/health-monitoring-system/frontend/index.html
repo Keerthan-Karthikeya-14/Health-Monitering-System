@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Monitoring System - Home</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="loading-container">
+        <div class="loader"></div>
+        <p>Loading Health Monitoring System...</p>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/api.js" defer></script>
+    <script src="js/utils.js" defer></script>
+    <script>
+        // Router logic - redirect based on authentication
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('index.html DOMContentLoaded: Checking authentication for initial routing.'); // DEBUG
+            const user = ApiService.getCurrentUser();
+            console.log('index.html: ApiService.getCurrentUser returned:', user); // DEBUG
+            if (user) {
+                // Normalize userType to uppercase for consistent comparison
+                const userType = (user.userType || user.role || 'PATIENT').toUpperCase().trim();
+                console.log('index.html: UserType detected:', userType); // DEBUG
+                if (userType === 'DOCTOR') { 
+                    console.log('index.html: Redirecting to doctor dashboard.'); // DEBUG
+                    window.location.href = 'dashboard/doctor-dashboard.html'; return; 
+                }
+                console.log('index.html: Redirecting to patient dashboard.'); // DEBUG
+                window.location.href = 'dashboard/dashboard.html';
+            } else {
+                console.log('index.html: User not authenticated, redirecting to login.'); // DEBUG
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+</html>

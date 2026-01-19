@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Records - Health Monitoring System</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <img src="https://res.cloudinary.com/dwren15bt/image/upload/v1761837624/Screenshot_2025-10-29_224358_tvdeop.png"
+                 class="main-logo"/> 
+                <span>HealthTrack</span>
+            </div>
+        </div>
+        
+        <div class="navbar-center">
+            <!-- search removed -->
+        </div>
+        
+        <div class="navbar-actions">
+            
+            <button class="logout-button" id="logoutBtn">Logout</button>
+            <!-- Notification icon removed -->
+            <div class="user-menu">
+               
+            </div>
+        </div>
+    </nav>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="my-records.html" class="nav-item active">
+                    <i class="fas fa-file-medical"></i>
+                    <span>My Records</span>
+                </a>
+                <a href="reports.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h1>My Health Records</h1>
+                    <p>Manage and track all your health records</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" id="exportBtn">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                    <button class="btn btn-primary" id="addRecordBtn">
+                        <i class="fas fa-plus"></i> Add Record
+                    </button>
+                    <button class="btn btn-primary" id="takeApptBtn">
+                        <i class="fas fa-calendar-plus"></i> Take Appointment
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-section">
+                <div class="filter-group">
+                    <label for="filterType">Type</label>
+                    <select id="filterType">
+                        <option value="">All Types</option>
+                        <option value="heart_rate">Heart Rate</option>
+                        <option value="blood_pressure">Blood Pressure</option>
+                        <option value="blood_sugar">Blood Sugar</option>
+                        <option value="temperature">Temperature</option>
+                        <option value="weight">Weight</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterStartDate">From Date</label>
+                    <input type="date" id="filterStartDate">
+                </div>
+                <div class="filter-group">
+                    <label for="filterEndDate">To Date</label>
+                    <input type="date" id="filterEndDate">
+                </div>
+                <button class="btn btn-secondary" id="clearFiltersBtn">Clear Filters</button>
+            </div>
+
+            <!-- Records Grid -->
+            <div class="records-grid" id="recordsGrid">
+                <!-- Records will be dynamically inserted here -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <i class="fas fa-file-medical"></i>
+                <h3>No records found</h3>
+                <p>Start tracking your health by adding your first record</p>
+                <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+                <button class="btn btn-primary" id="addFirstRecordBtn">
+                    <i class="fas fa-plus"></i> Add Your First Record
+                </button>
+                <button class="btn btn-primary" id="takeApptBtnEmpty">
+                    <i class="fas fa-calendar-plus"></i> Take Appointment
+                </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    
+
+    <!-- Add/Edit Record Modal -->
+    <div class="modal" id="recordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add Health Record</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="recordForm">
+                <input type="hidden" id="recordId">
+                <div class="form-group">
+                    <label for="recordType">Type *</label>
+                    <select id="recordType" name="type" required onchange="handleRecordTypeChange()">
+                        <option value="">Select type</option>
+                        <option value="heart_rate">Heart Rate</option>
+                        <option value="blood_pressure">Blood Pressure</option>
+                        <option value="blood_sugar">Blood Sugar</option>
+                        <option value="temperature">Temperature</option>
+                        <option value="weight">Weight</option>
+                        <option value="oxygen_level">Oxygen Level</option>
+                        <option value="sleep">Sleep Duration</option>
+                    </select>
+                </div>
+                <div class="form-group" id="heartRateGroup" style="display: none;">
+                    <label for="heartRate">Heart Rate (BPM) *</label>
+                    <input type="number" id="heartRate" name="heartRate" placeholder="e.g., 72" min="30" max="220">
+                </div>
+                <div class="form-row" id="bloodPressureGroup" style="display: none;">
+                    <div class="form-group">
+                        <label for="systolicBp">Systolic (mmHg) *</label>
+                        <input type="number" id="systolicBp" name="systolicBp" placeholder="e.g., 120" min="50" max="250">
+                    </div>
+                    <div class="form-group">
+                        <label for="diastolicBp">Diastolic (mmHg) *</label>
+                        <input type="number" id="diastolicBp" name="diastolicBp" placeholder="e.g., 80" min="30" max="150">
+                    </div>
+                </div>
+                <div class="form-group" id="genericValueGroup">
+                    <label for="recordValue">Value *</label>
+                    <input type="text" id="recordValue" name="value" placeholder="e.g., 98.6 or 180" required>
+                </div>
+                <div class="form-group" id="genericUnitGroup">
+                    <label for="recordUnit">Unit</label>
+                    <input type="text" id="recordUnit" name="unit" placeholder="e.g., °F, mg/dL, kg">
+                </div>
+                <div class="form-group">
+                    <label for="recordDate">Date & Time *</label>
+                    <input type="datetime-local" id="recordDate" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="recordNotes">Notes</label>
+                    <textarea id="recordNotes" name="notes" rows="3" placeholder="Add any additional notes..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveRecordBtn">Save Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Delete Record</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div style="padding: 1.5rem;">
+                <p>Are you sure you want to delete this record? This action cannot be undone.</p>
+                <div class="modal-actions" style="margin-top: 1.5rem;">
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Take Appointment Modal -->
+    <div class="modal" id="apptModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Book Appointment</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="apptForm" style="padding:1.5rem;">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="apptPatientName">Patient Name</label>
+                        <input type="text" id="apptPatientName" placeholder="Full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apptContact">Contact (Phone or Email)</label>
+                        <input type="text" id="apptContact" placeholder="e.g., +1 555 000 1111 or user@example.com" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="apptAge">Age (optional)</label>
+                        <input type="number" id="apptAge" min="0" placeholder="e.g., 30">
+                    </div>
+                    <div class="form-group">
+                        <label for="apptGender">Gender (optional)</label>
+                        <select id="apptGender">
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="apptType">Reason / Appointment Type</label>
+                        <input type="text" id="apptType" placeholder="e.g., General Checkup, Follow-up" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apptDate">Preferred Date & Time</label>
+                        <input type="datetime-local" id="apptDate" required>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Book</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/validation.js"></script>
+    <script src="../js/crud.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/interactions.js"></script>
+    <script>
+        // My Records Page Logic
+        let recordManager;
+        let currentRecordId = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check authentication via ApiService
+            const currentUser = ApiService.getCurrentUser();
+            if (!currentUser) { window.location.href = '../auth/login.html'; return; }
+
+            // Initialize
+            recordManager = new HealthRecordManager({ api: ApiService, user: currentUser });
+            await loadRecords();
+            initializeEventListeners();
+            setUserInfo();
+            initAppointmentDefaults();
+        });
+
+        function setUserInfo() {
+            const currentUser = ApiService.getCurrentUser();
+            if (currentUser) {
+                const name = currentUser.username || currentUser.name || 'User';
+                const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
+                const userInitialsEl = document.getElementById('userInitials');
+                if (userInitialsEl) {
+                    userInitialsEl.textContent = initials;
+                }
+            }
+        }
+
+        async function loadRecords(filters = {}) {
+            // Disabled - no backend support for records
+            const recordsGrid = document.getElementById('recordsGrid');
+            const emptyState = document.getElementById('emptyState');
+
+            recordsGrid.style.display = 'none';
+            emptyState.style.display = 'flex';
+            emptyState.innerHTML = '<p>Record management disabled - authentication only system</p>';
+        }
+
+        function initializeEventListeners() {
+            // Add record buttons
+            document.getElementById('addRecordBtn').addEventListener('click', openAddModal);
+            
+            document.getElementById('addFirstRecordBtn')?.addEventListener('click', openAddModal);
+
+            // Form submission
+            document.getElementById('recordForm').addEventListener('submit', handleFormSubmit);
+
+            // Filters
+            document.getElementById('filterType').addEventListener('change', applyFilters);
+            document.getElementById('filterStartDate').addEventListener('change', applyFilters);
+            document.getElementById('filterEndDate').addEventListener('change', applyFilters);
+            document.getElementById('clearFiltersBtn').addEventListener('click', clearFilters);
+
+            // Export
+            document.getElementById('exportBtn').addEventListener('click', showExportOptions);
+
+            // Modal close buttons
+            document.querySelectorAll('.modal-close').forEach(btn => {
+                btn.addEventListener('click', closeModals);
+            });
+
+            // Close modal when clicking outside
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeModals();
+                    }
+                });
+            });
+
+            // Delete confirmation
+            document.getElementById('confirmDeleteBtn').addEventListener('click', confirmDelete);
+
+            // Logout
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => { e.preventDefault(); AuthService.logout(); });
+            }
+            const logoutLink = document.getElementById('logoutLink');
+            if (logoutLink) {
+                logoutLink.addEventListener('click', (e) => { e.preventDefault(); AuthService.logout(); });
+            }
+
+            // Menu toggle
+            const menuToggle = document.getElementById('menuToggle');
+            if (menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    const sidebar = document.getElementById('sidebar');
+                    if (sidebar) sidebar.classList.toggle('show');
+                });
+            }
+
+            // User menu (optional - only if elements exist)
+            const userMenuBtn = document.getElementById('userMenuBtn');
+            const userDropdown = document.getElementById('userDropdown');
+            if (userMenuBtn && userDropdown) {
+                userMenuBtn.addEventListener('click', () => {
+                    userDropdown.classList.toggle('show');
+                });
+            }
+
+            // Set default date to now
+            const recordDateEl = document.getElementById('recordDate');
+            if (recordDateEl) {
+                const now = new Date();
+                now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+                recordDateEl.value = now.toISOString().slice(0, 16);
+            }
+
+            // Appointment buttons - ensure they work
+            const takeApptBtn = document.getElementById('takeApptBtn');
+            const takeApptBtnEmpty = document.getElementById('takeApptBtnEmpty');
+            const apptForm = document.getElementById('apptForm');
+            
+            if (takeApptBtn) {
+                takeApptBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openApptModal();
+                });
+            }
+            
+            if (takeApptBtnEmpty) {
+                takeApptBtnEmpty.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openApptModal();
+                });
+            }
+            
+            if (apptForm) {
+                apptForm.addEventListener('submit', handleApptSubmit);
+            }
+
+            // Safety: delegate clicks in case buttons are re-rendered
+            document.addEventListener('click', (e) => {
+                const apptBtn = e.target.closest('#takeApptBtn, #takeApptBtnEmpty');
+                if (apptBtn) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openApptModal();
+                }
+            });
+        }
+
+        function openAddModal() {
+            currentRecordId = null;
+            document.getElementById('modalTitle').textContent = 'Add Health Record';
+            document.getElementById('recordForm').reset();
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('recordDate').value = now.toISOString().slice(0, 16);
+            document.getElementById('recordModal').classList.add('show');
+        }
+
+        async function initAppointmentDefaults() {
+            // Set default date to now
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            const apptDateEl = document.getElementById('apptDate');
+            if (apptDateEl) {
+                apptDateEl.value = now.toISOString().slice(0, 16);
+            }
+            
+            // Prefill patient info if available
+            const current = ApiService.getCurrentUser();
+            if (current) {
+                const nameEl = document.getElementById('apptPatientName');
+                const contactEl = document.getElementById('apptContact');
+                if (nameEl && !nameEl.value) {
+                    nameEl.value = current.username || current.name || '';
+                }
+                if (contactEl && !contactEl.value) {
+                    contactEl.value = current.contact || current.email || '';
+                }
+            }
+        }
+
+        async function openApptModal() {
+            console.log('Opening appointment modal...'); // DEBUG
+            
+            const apptModal = document.getElementById('apptModal');
+            if (!apptModal) {
+                console.error('Appointment modal not found!');
+                Utils.showToast('Appointment modal not found', 'error');
+                return;
+            }
+
+            // Reset form first
+            const apptForm = document.getElementById('apptForm');
+            if (apptForm) {
+                apptForm.reset();
+            }
+
+            // Set default date to now
+            const apptDateEl = document.getElementById('apptDate');
+            if (apptDateEl) {
+                const now = new Date();
+                now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+                apptDateEl.value = now.toISOString().slice(0, 16);
+            }
+
+            // Prefill with current user info when available
+            const current = ApiService.getCurrentUser();
+            if (current) {
+                const nameEl = document.getElementById('apptPatientName');
+                const contactEl = document.getElementById('apptContact');
+                
+                if (nameEl) {
+                    nameEl.value = current.username || current.name || '';
+                }
+                if (contactEl) {
+                    contactEl.value = current.contact || current.email || '';
+                }
+                
+                // Try to get full user details if available
+                try {
+                    const fullUser = await ApiService.getUserById(current.id);
+                    if (fullUser) {
+                        if (nameEl && !nameEl.value) {
+                            nameEl.value = fullUser.username || fullUser.name || '';
+                        }
+                        if (contactEl && !contactEl.value) {
+                            contactEl.value = fullUser.contact || fullUser.email || '';
+                        }
+                    }
+                } catch (e) {
+                    console.log('Could not fetch full user details:', e);
+                }
+            }
+
+            // Open the modal
+            apptModal.classList.add('show');
+            console.log('Appointment modal opened'); // DEBUG
+        }
+
+        function isValidContact(value) {
+            const phoneRegex = /[\d\s\-\+\(\)]{6,}/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return phoneRegex.test(value) || emailRegex.test(value);
+        }
+
+        async function handleApptSubmit(e) {
+            e.preventDefault();
+            const current = ApiService.getCurrentUser();
+            if (!current || !current.id) {
+                Utils.showToast('Please log in to book an appointment', 'error');
+                return;
+            }
+
+            const reason = document.getElementById('apptType').value.trim();
+            const dt = document.getElementById('apptDate').value;
+            const patientName = document.getElementById('apptPatientName').value.trim();
+            const contact = document.getElementById('apptContact').value.trim();
+            const age = document.getElementById('apptAge').value;
+            const gender = document.getElementById('apptGender').value;
+            
+            if (!reason || !dt || !patientName || !contact) { 
+                Utils.showToast('Please complete all required fields', 'error'); 
+                return; 
+            }
+            if (!isValidContact(contact)) { 
+                Utils.showToast('Enter a valid phone number or email', 'error'); 
+                return; 
+            }
+            if (age && isNaN(parseInt(age))) { 
+                Utils.showToast('Age must be a number', 'error'); 
+                return; 
+            }
+            
+            // Get first available doctor
+            let doctorId = null;
+            try {
+                // Try to get all users and filter for doctors
+                const allUsers = await ApiService.getAllUsers();
+                console.log('All users fetched:', allUsers); // DEBUG
+                
+                if (allUsers && Array.isArray(allUsers)) {
+                    const doctors = allUsers.filter(u => {
+                        const role = (u.role || u.userType || '').toUpperCase();
+                        const isDoctor = role === 'DOCTOR';
+                        console.log('User:', u.username || u.name, 'Role:', role, 'Is Doctor:', isDoctor); // DEBUG
+                        return isDoctor;
+                    });
+                    
+                    console.log('Found doctors:', doctors.length); // DEBUG
+                    
+                    if (doctors.length > 0) {
+                        // Use first available doctor
+                        doctorId = doctors[0].id;
+                        console.log('✅ Selected doctor:', doctors[0].username || doctors[0].name, 'ID:', doctorId);
+                    } else {
+                        console.warn('⚠️ No doctors found in system. Appointment will be created without doctor assignment.');
+                        Utils.showToast('No doctors available. Appointment will be created without doctor assignment.', 'warning');
+                    }
+                }
+            } catch (e) { 
+                console.error('❌ Error finding doctor:', e); 
+                Utils.showToast('Could not find doctor. Appointment will be created without doctor assignment.', 'warning');
+                // Continue without doctor - appointment can be assigned later
+            }
+
+            // Format appointment date as ISO string (LocalDateTime format: "2024-01-15T10:30")
+            // Backend expects format: "yyyy-MM-ddTHH:mm:ss" or "yyyy-MM-ddTHH:mm"
+            const dateObj = new Date(dt);
+            const year = dateObj.getFullYear();
+            const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const day = String(dateObj.getDate()).padStart(2, '0');
+            const hours = String(dateObj.getHours()).padStart(2, '0');
+            const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+            const seconds = String(dateObj.getSeconds()).padStart(2, '0');
+            // Format: "2024-01-15T10:30:00" (LocalDateTime format)
+            const appointmentDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+
+            // Backend expects AppointmentDTO format: patientId, doctorId (optional), appointmentDate, reason
+            const apptData = {
+                patientId: current.id,
+                doctorId: doctorId, // Optional - can be null
+                appointmentDate: appointmentDate,
+                reason: reason
+            };
+
+            console.log('📅 Creating appointment with data:', JSON.stringify(apptData, null, 2)); // DEBUG
+
+            try {
+                // Show loading state
+                const submitBtn = document.querySelector('#apptForm button[type="submit"]');
+                const originalText = submitBtn ? submitBtn.textContent : '';
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Booking...';
+                }
+
+                const response = await ApiService.createAppointment(apptData);
+                console.log('✅ Appointment created successfully:', response); // DEBUG
+                
+                Utils.showToast('Appointment booked successfully! ' + (doctorId ? 'Doctor assigned.' : 'Waiting for doctor assignment.'), 'success');
+                
+                // Reset form and close modal
+                document.getElementById('apptForm').reset();
+                closeModals();
+                
+                // Re-enable submit button
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
+            } catch (err) {
+                console.error('❌ Failed to create appointment:', err); // DEBUG
+                const errorMsg = err.message || 'Unknown error';
+                Utils.showToast('Failed to create appointment: ' + errorMsg, 'error');
+                
+                // Re-enable submit button
+                const submitBtn = document.querySelector('#apptForm button[type="submit"]');
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Book';
+                }
+            }
+        }
+
+        async function editRecord(id) {
+            try {
+                const record = await recordManager.getRecordById(id);
+                if (!record) { Utils.showToast('Record not found', 'error'); return; }
+
+                currentRecordId = id;
+                document.getElementById('modalTitle').textContent = 'Edit Health Record';
+                
+                const recordType = record.type || record.recordType || '';
+                document.getElementById('recordType').value = recordType;
+                handleRecordTypeChange(); // Show/hide relevant fields
+                
+                // Set values based on record type
+                if (recordType === 'heart_rate' && record.heartRate) {
+                    document.getElementById('heartRate').value = record.heartRate;
+                } else if (recordType === 'blood_pressure') {
+                    if (record.systolicBp) document.getElementById('systolicBp').value = record.systolicBp;
+                    if (record.diastolicBp) document.getElementById('diastolicBp').value = record.diastolicBp;
+                } else {
+                    document.getElementById('recordValue').value = record.value || record.diagnosis || '';
+                    document.getElementById('recordUnit').value = record.unit || '';
+                }
+
+                const recordDate = record.date || record.recordDate;
+                if (recordDate) {
+                    const date = new Date(recordDate);
+                    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+                    document.getElementById('recordDate').value = date.toISOString().slice(0, 16);
+                }
+
+                document.getElementById('recordNotes').value = record.notes || record.symptoms || '';
+                document.getElementById('recordModal').classList.add('show');
+            } catch (e) {
+                console.error('Error loading record:', e);
+                Utils.showToast(e.message || 'Failed to load record', 'error');
+            }
+        }
+
+        function deleteRecord(id) {
+            currentRecordId = id;
+            document.getElementById('deleteModal').classList.add('show');
+        }
+
+        async function confirmDelete() {
+            if (!currentRecordId) return;
+
+            try {
+                await recordManager.deleteRecord(currentRecordId);
+                Utils.showToast('Record deleted successfully', 'success');
+                await loadRecords();
+                closeModals();
+            } catch (error) {
+                Utils.showToast(error.message, 'error');
+            }
+        }
+
+        function handleRecordTypeChange() {
+            const recordType = document.getElementById('recordType').value;
+            const heartRateGroup = document.getElementById('heartRateGroup');
+            const bloodPressureGroup = document.getElementById('bloodPressureGroup');
+            const genericValueGroup = document.getElementById('genericValueGroup');
+            const genericUnitGroup = document.getElementById('genericUnitGroup');
+            
+            // Hide all groups first
+            if (heartRateGroup) heartRateGroup.style.display = 'none';
+            if (bloodPressureGroup) bloodPressureGroup.style.display = 'none';
+            if (genericValueGroup) genericValueGroup.style.display = 'block';
+            if (genericUnitGroup) genericUnitGroup.style.display = 'block';
+            
+            // Show relevant fields based on type
+            if (recordType === 'heart_rate') {
+                if (heartRateGroup) heartRateGroup.style.display = 'block';
+                if (genericValueGroup) genericValueGroup.style.display = 'none';
+                if (genericUnitGroup) genericUnitGroup.style.display = 'none';
+            } else if (recordType === 'blood_pressure') {
+                if (bloodPressureGroup) bloodPressureGroup.style.display = 'grid';
+                if (genericValueGroup) genericValueGroup.style.display = 'none';
+                if (genericUnitGroup) genericUnitGroup.style.display = 'none';
+            }
+        }
+
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const recordType = formData.get('type');
+            
+            // Build record data based on type
+            const recordData = {
+                recordType: recordType,
+                type: recordType, // Legacy field
+                date: new Date(formData.get('date')).toISOString(),
+                notes: formData.get('notes'),
+                symptoms: formData.get('notes'), // Map notes to symptoms
+                diagnosis: formData.get('value') || ''
+            };
+            
+            // Add health metrics based on type
+            if (recordType === 'heart_rate') {
+                const heartRate = formData.get('heartRate');
+                if (heartRate) {
+                    recordData.heartRate = parseInt(heartRate);
+                    recordData.value = heartRate; // Legacy
+                    recordData.unit = 'BPM'; // Legacy
+                    recordData.diagnosis = `${heartRate} BPM`;
+                }
+            } else if (recordType === 'blood_pressure') {
+                const systolic = formData.get('systolicBp');
+                const diastolic = formData.get('diastolicBp');
+                if (systolic && diastolic) {
+                    recordData.systolicBp = parseInt(systolic);
+                    recordData.diastolicBp = parseInt(diastolic);
+                    recordData.value = `${systolic}/${diastolic}`; // Legacy
+                    recordData.unit = 'mmHg'; // Legacy
+                    recordData.diagnosis = `${systolic}/${diastolic} mmHg`;
+                }
+            } else {
+                // Generic record
+                recordData.value = formData.get('value');
+                recordData.unit = formData.get('unit');
+                recordData.diagnosis = formData.get('value') + (formData.get('unit') ? ' ' + formData.get('unit') : '');
+            }
+
+            try {
+                if (currentRecordId) {
+                    await recordManager.updateRecord(currentRecordId, recordData);
+                    Utils.showToast('Record updated successfully', 'success');
+                } else {
+                    await recordManager.createRecord(recordData);
+                    Utils.showToast('Record added successfully', 'success');
+                }
+                await loadRecords();
+                closeModals();
+            } catch (error) {
+                console.error('Error saving record:', error);
+                Utils.showToast(error.message || 'Failed to save record', 'error');
+            }
+        }
+
+        function applyFilters() {
+            const filters = {
+                type: document.getElementById('filterType').value,
+                startDate: document.getElementById('filterStartDate').value,
+                endDate: document.getElementById('filterEndDate').value
+            };
+
+            loadRecords(filters);
+        }
+
+        function clearFilters() {
+            document.getElementById('filterType').value = '';
+            document.getElementById('filterStartDate').value = '';
+            document.getElementById('filterEndDate').value = '';
+            loadRecords();
+        }
+
+        function showExportOptions() {
+            const options = confirm('Export as CSV? (Cancel for JSON)');
+            if (options) {
+                recordManager.exportRecordsCSV();
+            } else {
+                recordManager.exportRecordsJSON();
+            }
+        }
+
+        function closeModals() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.classList.remove('show');
+            });
+        }
+
+        function getRecordIcon(type) {
+            const icons = {
+                heart_rate: '<i class="fas fa-heartbeat"></i>',
+                blood_pressure: '<i class="fas fa-tint"></i>',
+                blood_sugar: '<i class="fas fa-vial"></i>',
+                temperature: '<i class="fas fa-thermometer-half"></i>',
+                weight: '<i class="fas fa-weight"></i>',
+                oxygen_level: '<i class="fas fa-lungs"></i>',
+                sleep: '<i class="fas fa-bed"></i>'
+            };
+            return icons[type] || '<i class="fas fa-notes-medical"></i>';
+        }
+
+        function formatRecordType(type) {
+            if (!type) return 'Unknown';
+            return type.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        }
+    </script>
+
+    <style>
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .filters-section {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            box-shadow: var(--shadow-sm);
+            animation: fadeInUp 0.6s ease 0.1s both;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .records-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            animation: fadeInUp 0.6s ease 0.2s both;
+        }
+
+        .record-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .record-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .record-type-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .record-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .icon-btn-sm {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .icon-btn-sm:hover {
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .record-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .record-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .record-notes {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 0.75rem;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #E53E3E;
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .filters-section {
+                flex-direction: column;
+            }
+
+            .filter-group {
+                width: 100%;
+            }
+
+            .records-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+        <style>
+            /* make appointment form two-column on desktop */
+            #apptForm .form-row { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1rem; }
+        </style>
+</body>
+</html>

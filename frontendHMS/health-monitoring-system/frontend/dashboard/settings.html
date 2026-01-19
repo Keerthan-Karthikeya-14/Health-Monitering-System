@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Health Monitoring System</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <img src="https://res.cloudinary.com/dwren15bt/image/upload/v1761837624/Screenshot_2025-10-29_224358_tvdeop.png"
+                class="main-logo"/>
+                <span>HealthTrack</span>
+            </div>
+        </div>
+        
+        <div class="navbar-center">
+            <!-- search removed -->
+        </div>
+        
+        <div class="navbar-actions">
+            
+            <button class="logout-button" id="logoutBtn">Logout</button>
+           
+           
+        </div>
+    </nav>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="my-records.html" class="nav-item">
+                    <i class="fas fa-file-medical"></i>
+                    <span>My Records</span>
+                </a>
+                <a href="reports.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="settings.html" class="nav-item active">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h1>Settings</h1>
+                    <p>Manage your account and preferences</p>
+                </div>
+            </div>
+
+            <!-- Settings Sections -->
+            <div class="settings-container">
+                <!-- Profile Settings -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <h3><i class="fas fa-user"></i> Profile Information</h3>
+                    </div>
+                    <form id="profileForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profileName">Full Name</label>
+                                <input type="text" id="profileName" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="profileEmail">Email</label>
+                                <input type="email" id="profileEmail" name="email" required disabled>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profileAge">Age</label>
+                                <input type="number" id="profileAge" name="age" min="1" max="120" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="profileGender">Gender</label>
+                                <select id="profileGender" name="gender" required>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profileContact">Contact Number</label>
+                            <input type="tel" id="profileContact" name="contact" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </form>
+                </div>
+
+                
+
+                <!-- Privacy & Security -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <h3><i class="fas fa-shield-alt"></i> Privacy & Security</h3>
+                    </div>
+                    <div class="settings-option">
+                        <div class="option-info">
+                            <h4>Change Password</h4>
+                            <p>Update your account password</p>
+                        </div>
+                        <button class="btn btn-secondary" id="changePasswordBtn">
+                            <i class="fas fa-key"></i> Change
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Data Management -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <h3><i class="fas fa-database"></i> Data Management</h3>
+                    </div>
+                    <div class="settings-option">
+                        <div class="option-info">
+                            <h4>Export Data</h4>
+                            <p>Download all your health records</p>
+                        </div>
+                        <button class="btn btn-secondary" id="exportDataBtn">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                    </div>
+                    <div class="settings-option">
+                        <div class="option-info">
+                            <h4>Clear All Data</h4>
+                            <p>Permanently delete all your records</p>
+                        </div>
+                        <button class="btn btn-danger" id="clearDataBtn">
+                            <i class="fas fa-trash"></i> Clear Data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- About moved to footer modal -->
+            </div>
+        </main>
+        <!-- Footer modal for About -->
+        <div class="modal" id="aboutFooterModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>About HealthTrack</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div style="padding: 1.5rem;">
+                    <p><strong>HealthTrack</strong></p>
+                    <p>Contact: healthtrack-support@example.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal" id="passwordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change Password</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" id="currentPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmNewPassword">Confirm New Password</label>
+                    <input type="password" id="confirmNewPassword" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/validation.js"></script>
+    <script src="../js/crud.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/interactions.js"></script>
+    <script>
+        let currentUser;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = ApiService.getCurrentUser();
+            if (!user) { window.location.href = '../auth/login.html'; return; }
+            currentUser = user;
+            initializePage();
+        });
+
+        function initializePage() {
+            loadUserProfile();
+            loadPreferences();
+            initializeEventListeners();
+            setUserInfo();
+        }
+
+        function setUserInfo() {
+            const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+            document.getElementById('userInitials').textContent = initials;
+        }
+
+        async function loadUserProfile() {
+            // Disabled - no backend support for user profile management
+            const currentUser = ApiService.getCurrentUser();
+            if (currentUser) {
+                document.getElementById('profileName').value = currentUser.username || '';
+                document.getElementById('profileEmail').value = currentUser.email || '';
+                document.getElementById('profileAge').value = '';
+                document.getElementById('profileGender').value = '';
+                document.getElementById('profileContact').value = '';
+            }
+        }
+
+        function loadPreferences() {}
+
+        function initializeEventListeners() {
+            // Profile form
+            const profileForm = document.getElementById('profileForm');
+            if (profileForm) profileForm.addEventListener('submit', handleProfileUpdate);
+
+            // Password change
+            const changePasswordBtn = document.getElementById('changePasswordBtn');
+            if (changePasswordBtn) changePasswordBtn.addEventListener('click', () => {
+                const passwordModal = document.getElementById('passwordModal');
+                if (passwordModal) passwordModal.classList.add('show');
+            });
+
+            const passwordForm = document.getElementById('passwordForm');
+            if (passwordForm) passwordForm.addEventListener('submit', handlePasswordChange);
+
+            // Data management
+            const exportDataBtn = document.getElementById('exportDataBtn');
+            if (exportDataBtn) exportDataBtn.addEventListener('click', exportAllData);
+            const clearDataBtn = document.getElementById('clearDataBtn');
+            if (clearDataBtn) clearDataBtn.addEventListener('click', confirmClearData);
+
+            // Modal close
+            document.querySelectorAll('.modal-close').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.modal').forEach(modal => {
+                        modal.classList.remove('show');
+                    });
+                });
+            });
+
+            // Logout
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) { logoutBtn.addEventListener('click', (e) => { e.preventDefault(); AuthService.logout(); }); }
+            const logoutLink = document.getElementById('logoutLink');
+            if (logoutLink) { logoutLink.addEventListener('click', (e) => { e.preventDefault(); AuthService.logout(); }); }
+
+            // Menu toggle
+            const menuToggle = document.getElementById('menuToggle');
+            if (menuToggle) menuToggle.addEventListener('click', () => {
+                const sidebar = document.getElementById('sidebar');
+                if (sidebar) sidebar.classList.toggle('show');
+            });
+
+            // User menu
+            const userMenuBtn = document.getElementById('userMenuBtn');
+            if (userMenuBtn) userMenuBtn.addEventListener('click', () => {
+                const userDropdown = document.getElementById('userDropdown');
+                if (userDropdown) userDropdown.classList.toggle('show');
+            });
+        }
+
+        async function handleProfileUpdate(e) {
+            e.preventDefault();
+
+            // Disabled - no backend support for profile updates
+            Utils.showToast('Profile updates disabled - authentication only system', 'info');
+        }
+
+        
+
+        // Removed savePreferences for notifications to simplify preferences to theme only
+
+        function handlePasswordChange(e) {
+            e.preventDefault();
+            
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmNewPassword').value;
+
+            if (newPassword !== confirmPassword) {
+                Utils.showToast('Passwords do not match', 'error');
+                return;
+            }
+
+            const validation = Validator.validatePassword(newPassword);
+            if (!validation.valid) {
+                Utils.showToast(validation.message, 'error');
+                return;
+            }
+
+            // In a real app, verify current password
+            Utils.showToast('Password updated successfully', 'success');
+            document.getElementById('passwordModal').classList.remove('show');
+            document.getElementById('passwordForm').reset();
+        }
+
+        async function exportAllData() {
+            // Disabled - no backend support for data export
+            Utils.showToast('Data export disabled - authentication only system', 'info');
+        }
+
+        async function confirmClearData() {
+            // Disabled - no backend support for data deletion
+            Utils.showToast('Data deletion disabled - authentication only system', 'info');
+        }
+    </script>
+
+    <!-- Sync theme toggle from navbar and from Appearance card -->
+    
+    <!-- Footer container -->
+    <footer style="margin: 2rem 0 1rem 0; padding: 1rem; text-align:center; color: var(--text-secondary);">
+        <div>© 2025 HealthTrack • Built for learning and personal wellness tracking</div>
+        <div>Need help? <a href="#" onclick="document.getElementById('aboutFooterModal').classList.add('show'); return false;">Contact support</a> • Email: healthtrack-support@example.com</div>
+    </footer>
+
+    <style>
+        .page-header {
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .settings-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width:100%;
+        }
+
+        .settings-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .settings-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .settings-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-primary);
+            font-size: 1.25rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .settings-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .settings-option:last-child {
+            border-bottom: none;
+        }
+
+        .option-info h4 {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .option-info p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        .toggle-switch input:checked + .toggle-slider {
+            background-color: var(--primary-color);
+        }
+
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        .about-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .about-content p {
+            margin-bottom: 0.5rem;
+        }
+
+        .about-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .about-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .about-links a:hover {
+            color: var(--primary-dark);
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #E53E3E;
+        }
+
+        @media (max-width: 768px) {
+            .settings-option {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

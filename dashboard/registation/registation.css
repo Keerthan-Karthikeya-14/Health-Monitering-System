@@ -1,0 +1,106 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+body {
+    /* background: #f7fafd; */
+    background-image:url("https://res.cloudinary.com/dwren15bt/image/upload/v1758599177/untitled-0_hvcon8.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+.Registationbox{
+    width: 800px;
+    height: 500px;
+    /* background: skyblue; */
+    color: #ffffff;
+    margin-top: 60px;
+    box-sizing: border-box;
+    padding: 70px 30px;
+    border-radius: 15px;    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    left:39%;
+    /* left:50%; */
+}
+form{
+    text-align:center;
+    width:500px;
+    margin: 0 auto;
+}
+.input-box input {
+  width: 100%;
+  padding: 12px 45px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  background: white;
+  font-size: 16px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.loginheading{
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 22px;
+}
+.input-box {
+  position: relative;
+  width: 100%;
+  margin: 15px 0;
+}
+.input-box i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: gray;
+  font-size: 18px;
+}
+.input-box .fa-user,
+.input-box .fa-lock,
+.input-box .fa-mobile {
+  left: 15px;
+}
+.input-box .fa-eye {
+  right: 15px;
+  cursor: pointer;
+}
+
+.loginbutton1{
+   width:150px;
+   height:25px;
+   border-radius:25px;
+   background-color:rgb(13, 111, 232);
+   color:white;
+   border:none;
+   cursor:pointer;
+   transition:0.5s;
+
+}
+.loginbutton1:hover{
+    background-color:white;
+    color:#03a9f4;
+    cursor:pointer;
+}
+
+
+@media (max-width: 900px) {
+    .loginbox {
+        width: 95vw;
+        padding: 40px 10px;
+    }
+    form {
+        width: 90vw;
+    }
+}

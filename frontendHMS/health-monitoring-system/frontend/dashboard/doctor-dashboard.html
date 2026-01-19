@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard - Health Monitoring System</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/doctor-dashboard.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <nav class="navbar" aria-label="Top Navigation Bar">
+        <div class="navbar-brand">
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo" aria-label="HealthTrack logo">
+                <img src="https://res.cloudinary.com/dwren15bt/image/upload/v1761837624/Screenshot_2025-10-29_224358_tvdeop.png" class="main-logo" alt="HealthTrack"/>
+                <span>HealthTrack</span>
+            </div>
+        </div>
+        <div class="navbar-center"></div>
+        <div class="navbar-actions">
+            <button class="logout-button" id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar" aria-label="Sidebar Navigation">
+            <nav class="sidebar-nav" role="navigation">
+                <a href="doctor-dashboard.html" class="nav-item active">
+                    <i class="fas fa-user-md"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="doctor-appointments.html" class="nav-item" id="navAppointments">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>My Appointments</span>
+                </a>
+                <a href="#" class="nav-item" id="navSettings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section class="welcome-section" aria-labelledby="welcomeHeading">
+                <div class="welcome-text">
+                    <h1 id="welcomeHeading">Welcome, <span id="doctorName">Doctor</span> 👋</h1>
+                    <p id="currentDate">Loading...</p>
+                </div>
+            </section>
+
+            <!-- Statistics Cards -->
+            <section class="stats-section" aria-labelledby="statsHeading">
+                <h2 id="statsHeading" class="section-title">Appointment Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(255, 107, 107, 0.1); color: #FF6B6B;">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-value" id="totalToday">0</h3>
+                            <p class="stat-label">Total Today</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(255, 193, 7, 0.1); color: #FFC107;">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-value" id="pendingCount">0</h3>
+                            <p class="stat-label">Pending</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(76, 175, 80, 0.1); color: #4CAF50;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-value" id="completedCount">0</h3>
+                            <p class="stat-label">Completed</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(33, 150, 243, 0.1); color: #2196F3;">
+                            <i class="fas fa-calendar-week"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-value" id="upcomingWeek">0</h3>
+                            <p class="stat-label">Upcoming This Week</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+        </main>
+    </div>
+
+    <div class="modal" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="settingsTitle">Doctor Settings</h3>
+                <button class="modal-close" aria-label="Close settings">&times;</button>
+            </div>
+            <form id="doctorSettingsForm">
+                <div class="form-group">
+                    <label for="contactInput">Contact</label>
+                    <input type="text" id="contactInput" name="contact" placeholder="+1234567890" required>
+                    <div class="error-message" id="contactError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="passwordInput">New Password</label>
+                    <input type="password" id="passwordInput" name="password" placeholder="••••••••">
+                    <div class="error-message" id="passwordError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="themeSelect">Theme</label>
+                    <select id="themeSelect" name="theme">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="../js/api.js"></script>
+        <script src="../js/utils.js"></script>
+        <script src="../js/validation.js"></script>
+        <script src="../js/auth.js"></script>
+        <script src="../js/crud.js"></script>
+        <script src="../js/interactions.js"></script>
+        <script src="../js/doctor-dashboard.js"></script>
+    <script>
+    (function(){
+            const themeBtn = document.getElementById('themeToggle');
+            function setTheme(theme){
+                document.documentElement.setAttribute('data-theme', theme);
+                // store in cookie
+                document.cookie = `global-theme=${encodeURIComponent(theme)}; path=/; max-age=${60*60*24*30}`;
+                themeBtn && themeBtn.classList.toggle('active', theme === 'dark');
+            }
+            const savedMatch = document.cookie.match(new RegExp('(^| )global-theme=([^;]+)'));
+            const saved = savedMatch ? decodeURIComponent(savedMatch[2]) : 'light';
+            setTheme(saved);
+            themeBtn && themeBtn.addEventListener('click', function(){
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                setTheme(isDark ? 'light' : 'dark');
+            });
+    })();
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,90 @@
+/* doctor-dashboard.css - Styles scoped to Doctor Dashboard */
+
+.appointments-section .filters select {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: #fff;
+}
+
+.appointments-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.appointments-table th,
+.appointments-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: top;
+}
+
+.appointments-table th {
+    background: var(--primary-light);
+    color: var(--text-primary);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+}
+
+.suggestion-input {
+    width: 100%;
+    min-height: 80px;
+    resize: vertical;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: #fff;
+}
+
+.suggestion-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.status-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.status-upcoming { background: #E6FFFA; color: #2C7A7B; }
+.status-completed { background: #E6FFED; color: #2F855A; }
+.status-cancelled { background: #FEE2E2; color: #C53030; }
+
+@media (max-width: 900px) {
+  .appointments-table table, 
+  .appointments-table thead, 
+  .appointments-table tbody, 
+  .appointments-table th, 
+  .appointments-table td, 
+  .appointments-table tr { display: block; }
+
+  .appointments-table thead tr { display: none; }
+
+  .appointments-table td { 
+    border: none; 
+    position: relative; 
+    padding-left: 50%;
+  }
+
+  .appointments-table td::before { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 45%; 
+    padding: 1rem; 
+    white-space: nowrap; 
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  .appointments-table td[data-label]::before { content: attr(data-label); }
+}
+

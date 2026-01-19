@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Health Monitoring System</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <img src="https://res.cloudinary.com/dwren15bt/image/upload/v1761837624/Screenshot_2025-10-29_224358_tvdeop.png"
+                class="main-logo"/>
+                <span>HealthTrack</span>
+            </div>
+        </div>
+        
+        <div class="navbar-center">
+            <!-- search removed -->
+        </div>
+        
+        <div class="navbar-actions">
+            
+            <!-- Notification icon removed -->
+            <button class="logout-button" id="logoutBtn">Logout</button>
+            
+        </div>
+    </nav>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="my-records.html" class="nav-item">
+                    <i class="fas fa-file-medical"></i>
+                    <span>My Records</span>
+                </a>
+                <a href="reports.html" class="nav-item active">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h1>Health Reports & Analytics</h1>
+                    <p>Comprehensive insights into your health trends</p>
+                </div>
+                <button class="btn btn-primary" id="generateReportBtn">
+                    <i class="fas fa-file-pdf"></i> Generate PDF Report
+                </button>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <div class="summary-icon heart">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h4>Average Heart Rate</h4>
+                        <p class="summary-value" id="avgHeartRate">72 BPM</p>
+                        <span class="summary-period">Last 30 days</span>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-icon pressure">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h4>Blood Pressure</h4>
+                        <p class="summary-value" id="avgBP">120/80</p>
+                        <span class="summary-period">Average</span>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-icon records">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h4>Total Records</h4>
+                        <p class="summary-value" id="totalRecords">0</p>
+                        <span class="summary-period">All time</span>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-icon trend">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h4>Health Trend</h4>
+                        <p class="summary-value trend-up">Improving</p>
+                        <span class="summary-period">This month</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="reports-charts">
+                <div class="chart-card full-width">
+                    <div class="chart-header">
+                        <h3>Heart Rate Trends</h3>
+                        <div class="chart-controls">
+                            <button class="btn-sm active" data-period="7">7 Days</button>
+                            <button class="btn-sm" data-period="30">30 Days</button>
+                            <button class="btn-sm" data-period="90">90 Days</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="heartRateTrendChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card eq-card">
+                    <div class="chart-header">
+                        <h3>Record Distribution</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="recordDistributionChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card eq-card">
+                    <div class="chart-header">
+                        <h3>Monthly Activity</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="monthlyActivityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-grid" id="patientAppointmentsPanel">
+                <div class="summary-card">
+                    <div class="summary-icon trend">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="summary-content" style="width:100%">
+                        <h4>My Upcoming Appointments</h4>
+                        <div id="patientAppointmentsList"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Insights -->
+            
+
+            <!-- Doctor Suggestions Feed -->
+            <div class="insights-section" id="doctorSuggestionsSection">
+                <div class="section-header">
+                    <h3><i class="fas fa-user-md"></i> Doctor Suggestions & Recommendations</h3>
+                    <div class="filter-controls">
+                        <select id="suggestionFilter">
+                            <option value="all">All Suggestions</option>
+                            <option value="recent">Recent (Last 30 Days)</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="doctorSuggestionsList" class="suggestions-grid"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- AI Suggestions Bot -->
+    <!-- <div id="aiBot" style="position:fixed; right:20px; bottom:20px; z-index:1000;">
+        <button id="aiBotToggle" class="btn btn-primary" style="border-radius:24px; padding:0.75rem 1rem; display:flex; align-items:center; gap:8px;">
+            <i class="fas fa-robot"></i> AI Health Tips
+        </button>
+        <div id="aiBotPanel" style="display:none; width:320px; max-height:420px; overflow:hidden; margin-top:8px; box-shadow: var(--shadow-lg); border-radius:12px; background: var(--card-bg);">
+            <div style="padding:12px 16px; border-bottom:1px solid var(--border-color); display:flex; align-items:center; gap:8px;">
+                <i class="fas fa-heartbeat" style="color: var(--primary-color);"></i>
+                <strong>AI Health Suggestions</strong>
+            </div>
+            <div id="aiBotMessages" style="padding:12px 16px; display:flex; flex-direction:column; gap:10px; max-height:300px; overflow:auto;">
+                <div style="background:#F0F9FF; border-left:3px solid #87CEEB; padding:8px 10px; border-radius:8px;">Try a 10-minute walk after meals to improve digestion.</div>
+                <div style="background:#F0FFF4; border-left:3px solid #48BB78; padding:8px 10px; border-radius:8px;">Keep your hydration steady: 1 glass of water each hour.</div>
+                <div style="background:#FFFAF0; border-left:3px solid #F6AD55; padding:8px 10px; border-radius:8px;">Aim for a consistent sleep schedule to regulate heart health.</div>
+            </div>
+            <div style="display:flex; gap:8px; padding:12px 16px; border-top:1px solid var(--border-color);">
+                <input id="aiBotInput" type="text" placeholder="Ask for a tip..." style="flex:1; padding:8px 10px; border:1px solid var(--border-color); border-radius:8px; background: var(--bg-color); color: var(--text-primary);" />
+                <button id="aiBotSend" class="btn btn-secondary">Send</button>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/crud.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/interactions.js"></script>
+    <script>
+        let recordManager;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check authentication
+            const currentUser = ApiService.getCurrentUser();
+            if (!currentUser) { window.location.href = '../auth/login.html'; return; }
+
+            recordManager = new HealthRecordManager({ api: ApiService, user: currentUser });
+            await initializePage();
+            setUserInfo();
+        });
+
+        function setUserInfo() {
+            const currentUser = ApiService.getCurrentUser();
+            const userInitialsEl = document.getElementById('userInitials');
+            if (currentUser && userInitialsEl) {
+                const name = currentUser.name || currentUser.username || 'User';
+                const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
+                userInitialsEl.textContent = initials;
+            }
+        }
+
+        function initializePage() {
+            loadSummaryData();
+            initializeCharts();
+            generateInsights();
+            initializeEventListeners();
+            renderDoctorSuggestions();
+            loadAppointmentsForPatient();
+        }
+
+        async function loadSummaryData() {
+            // Disabled - no backend support for records
+            const totalRecordsEl = document.getElementById('totalRecords');
+            if (totalRecordsEl) {
+                totalRecordsEl.textContent = 'N/A';
+            }
+
+            const avgHeartRateEl = document.getElementById('avgHeartRate');
+            if (avgHeartRateEl) {
+                avgHeartRateEl.textContent = 'N/A';
+            }
+        }
+
+        async function renderDoctorSuggestions() {
+            const current = ApiService.getCurrentUser();
+            const container = document.getElementById('doctorSuggestionsList');
+            const section = document.getElementById('doctorSuggestionsSection');
+            if (!current || !container || !section) return;
+
+            // Disabled - no backend support for doctor suggestions
+            container.innerHTML = '<div class="empty-state"><i class="fas fa-notes-medical"></i><p>Doctor suggestions disabled - authentication only system</p></div>';
+        }
+        
+        window.printSuggestion = function(suggestionId) {
+            Utils.showToast('Print functionality coming soon!', 'info');
+        }
+
+        function initializeCharts() {
+            initHeartRateTrendChart();
+            initRecordDistributionChart();
+            initMonthlyActivityChart();
+        }
+
+        async function loadAppointmentsForPatient() {
+            const current = ApiService.getCurrentUser();
+            const listEl = document.getElementById('patientAppointmentsList');
+            if (!current || !listEl) return;
+
+            // Disabled - no backend support for appointments
+            listEl.innerHTML = '<p class="text-secondary">Appointments disabled - authentication only system</p>';
+        }
+
+        async function initHeartRateTrendChart() {
+            const ctx = document.getElementById('heartRateTrendChart');
+            if (!ctx) return;
+
+            // Disabled - no backend support for health data
+            ctx.parentElement.innerHTML = '<div class="chart-empty-state"><i class="fas fa-chart-line"></i><p>Charts disabled - authentication only system</p></div>';
+        }
+
+        async function initRecordDistributionChart() {
+            const ctx = document.getElementById('recordDistributionChart');
+            if (!ctx) return;
+
+            // Disabled - no backend support for health data
+            ctx.parentElement.innerHTML = '<div class="chart-empty-state"><i class="fas fa-chart-pie"></i><p>Charts disabled - authentication only system</p></div>';
+        }
+
+        async function initMonthlyActivityChart() {
+            const ctx = document.getElementById('monthlyActivityChart');
+            if (!ctx) return;
+
+            // Disabled - no backend support for health data
+            ctx.parentElement.innerHTML = '<div class="chart-empty-state"><i class="fas fa-chart-bar"></i><p>Charts disabled - authentication only system</p></div>';
+        }
+
+        function generateInsights() {
+            const grid = document.getElementById('insightsGrid');
+            if (!grid) {
+                console.log('Insights grid not found, skipping insights generation');
+                return;
+            }
+
+            const insights = [
+                { icon: 'fa-check-circle', type: 'success', text: 'Your heart rate is within the normal range. Keep up the good work!' },
+                { icon: 'fa-info-circle', type: 'info', text: 'You\'ve logged 15 records this month. Consistency is key to tracking health.' },
+                { icon: 'fa-lightbulb', type: 'tip', text: 'Try to maintain regular sleep patterns for better overall health.' },
+                { icon: 'fa-chart-line', type: 'trend', text: 'Your health metrics show a positive trend over the last 30 days.' }
+            ];
+
+            grid.innerHTML = insights.map(insight => `
+                <div class="insight-card ${insight.type}">
+                    <i class="fas ${insight.icon}"></i>
+                    <p>${insight.text}</p>
+                </div>
+            `).join('');
+        }
+
+        function initializeEventListeners() {
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => { e.preventDefault(); AuthService.logout(); });
+            }
+            const logoutLink = document.getElementById('logoutLink');
+            if (logoutLink) {
+                logoutLink.addEventListener('click', (e) => { e.preventDefault(); AuthService.logout(); });
+            }
+
+            const menuToggle = document.getElementById('menuToggle');
+            if (menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    document.getElementById('sidebar').classList.toggle('show');
+                });
+            }
+
+            const userMenuBtn = document.getElementById('userMenuBtn');
+            if (userMenuBtn) {
+                userMenuBtn.addEventListener('click', () => {
+                    document.getElementById('userDropdown').classList.toggle('show');
+                });
+            }
+
+            const generateReportBtn = document.getElementById('generateReportBtn');
+            if (generateReportBtn) {
+                generateReportBtn.addEventListener('click', generatePDFReport);
+            }
+
+            // AI bot toggle (simple UI behavior)
+            const botToggle = document.getElementById('aiBotToggle');
+            const botPanel = document.getElementById('aiBotPanel');
+            const botSend = document.getElementById('aiBotSend');
+            const botInput = document.getElementById('aiBotInput');
+            const botMessages = document.getElementById('aiBotMessages');
+            if (botToggle && botPanel) {
+                botToggle.addEventListener('click', () => {
+                    botPanel.style.display = botPanel.style.display === 'none' ? 'block' : 'none';
+                });
+            }
+            if (botSend && botInput && botMessages) {
+                botSend.addEventListener('click', () => {
+                    const text = botInput.value.trim();
+                    if (!text) return;
+                    const userMsg = document.createElement('div');
+                    userMsg.style.cssText = 'background:var(--card-bg); border-left:3px solid var(--primary-color); padding:8px 10px; border-radius:8px;';
+                    userMsg.textContent = text;
+                    botMessages.appendChild(userMsg);
+                    botInput.value = '';
+                    setTimeout(() => {
+                        const aiMsg = document.createElement('div');
+                        aiMsg.style.cssText = 'background:#EBF8FF; border-left:3px solid #4299E1; padding:8px 10px; border-radius:8px;';
+                        aiMsg.textContent = 'Tip: Include fruits/vegetables in your next meal for better heart health.';
+                        botMessages.appendChild(aiMsg);
+                        botMessages.scrollTop = botMessages.scrollHeight;
+                    }, 600);
+                });
+            }
+        }
+
+        function formatRecordType(type) {
+            return type.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        }
+
+        // PDF Generation Function
+        async function generatePDFReport() {
+            const currentUser = ApiService.getCurrentUser();
+            if (!currentUser || !currentUser.id) {
+                Utils.showToast('Please log in to generate report', 'error');
+                return;
+            }
+            
+            try {
+                Utils.showToast('Generating PDF report...', 'info');
+                const reportData = await ApiService.generateReport(currentUser.id);
+                
+                // Use jsPDF to generate PDF
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                
+                // Page 1 - Header
+                doc.setFontSize(20);
+                doc.text('HealthTrack Health Report', 105, 20, { align: 'center' });
+                doc.setFontSize(12);
+                doc.text(`Patient: ${reportData.patient.name || reportData.patient.email}`, 20, 35);
+                doc.text(`Report Date: ${new Date().toLocaleDateString()}`, 20, 42);
+                doc.text(`Period: Last 30 Days`, 20, 49);
+                
+                // Health Summary
+                doc.setFontSize(16);
+                doc.text('Health Summary', 20, 65);
+                doc.setFontSize(11);
+                doc.text(`Average Heart Rate: ${reportData.summary.avgHeartRate || 'N/A'} BPM`, 25, 75);
+                doc.text(`Latest Blood Pressure: ${reportData.summary.latestBP || 'N/A'} mmHg`, 25, 82);
+                doc.text(`Total Records: ${reportData.summary.totalRecords || 0}`, 25, 89);
+                doc.text(`Health Trend: ${reportData.summary.healthTrend || 'N/A'}`, 25, 96);
+                
+                // Detailed Records
+                if (reportData.records && reportData.records.length > 0) {
+                    doc.addPage();
+                    doc.setFontSize(16);
+                    doc.text('Detailed Health Records', 20, 20);
+                    doc.setFontSize(10);
+                    
+                    let yPos = 30;
+                    reportData.records.slice(0, 20).forEach((record, idx) => {
+                        if (yPos > 270) {
+                            doc.addPage();
+                            yPos = 20;
+                        }
+                        doc.text(`${idx + 1}. ${new Date(record.recordDate).toLocaleDateString()}`, 20, yPos);
+                        doc.text(`   Heart Rate: ${record.heartRate || 'N/A'} BPM`, 25, yPos + 7);
+                        if (record.systolicBp && record.diastolicBp) {
+                            doc.text(`   Blood Pressure: ${record.systolicBp}/${record.diastolicBp} mmHg`, 25, yPos + 14);
+                        }
+                        if (record.diagnosis) {
+                            doc.text(`   Diagnosis: ${record.diagnosis.substring(0, 60)}`, 25, yPos + 21);
+                        }
+                        yPos += 32;
+                    });
+                }
+                
+                // Doctor Suggestions
+                if (reportData.suggestions && reportData.suggestions.length > 0) {
+                    doc.addPage();
+                    doc.setFontSize(16);
+                    doc.text('Doctor Suggestions & Recommendations', 20, 20);
+                    doc.setFontSize(10);
+                    
+                    let yPos = 30;
+                    reportData.suggestions.forEach((suggestion, idx) => {
+                        if (yPos > 250) {
+                            doc.addPage();
+                            yPos = 20;
+                        }
+                        
+                        // Doctor name and specialization
+                        doc.setFontSize(12);
+                        doc.setFont(undefined, 'bold');
+                        doc.text(`${idx + 1}. Dr. ${suggestion.doctorName || 'Unknown'}`, 20, yPos);
+                        doc.setFont(undefined, 'normal');
+                        doc.setFontSize(10);
+                        
+                        if (suggestion.doctorSpecialization) {
+                            doc.text(`Specialization: ${suggestion.doctorSpecialization}`, 25, yPos + 7);
+                            yPos += 7;
+                        }
+                        
+                        if (suggestion.doctorContact) {
+                            doc.text(`Contact: ${suggestion.doctorContact}`, 25, yPos + 7);
+                            yPos += 7;
+                        }
+                        
+                        // Appointment details
+                        doc.text(`Appointment Date: ${suggestion.appointmentDate ? new Date(suggestion.appointmentDate).toLocaleDateString() : 'N/A'}`, 25, yPos + 7);
+                        doc.text(`Type: ${suggestion.appointmentType || 'General Checkup'}`, 25, yPos + 14);
+                        
+                        // Suggestion text (wrap long text)
+                        doc.setFont(undefined, 'bold');
+                        doc.text('Recommendation:', 25, yPos + 21);
+                        doc.setFont(undefined, 'normal');
+                        
+                        const suggestionText = suggestion.suggestion || 'No suggestion provided';
+                        const splitText = doc.splitTextToSize(suggestionText, 160);
+                        doc.text(splitText, 25, yPos + 28);
+                        
+                        yPos += 28 + (splitText.length * 5) + 15;
+                        
+                        // Draw separator line
+                        if (idx < reportData.suggestions.length - 1) {
+                            doc.setDrawColor(200, 200, 200);
+                            doc.line(20, yPos - 5, 190, yPos - 5);
+                        }
+                    });
+                }
+                
+                // Footer on all pages
+                const pageCount = doc.internal.pages.length - 1;
+                for (let i = 1; i <= pageCount; i++) {
+                    doc.setPage(i);
+                    doc.setFontSize(8);
+                    doc.text(`Page ${i} of ${pageCount}`, 105, 285, { align: 'center' });
+                    doc.text(`Generated: ${new Date().toLocaleString()}`, 105, 290, { align: 'center' });
+                    doc.text('This is a computer-generated report', 105, 295, { align: 'center' });
+                }
+                
+                // Download
+                const fileName = `HealthTrack_Report_${currentUser.username}_${new Date().toISOString().split('T')[0]}.pdf`;
+                doc.save(fileName);
+                
+                Utils.showToast('PDF report generated successfully!', 'success');
+            } catch (error) {
+                console.error('PDF generation error:', error);
+                Utils.showToast('Failed to generate PDF report', 'error');
+            }
+        }
+    </script>
+
+    <style>
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .summary-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            flex-shrink: 0;
+        }
+
+        .summary-icon.heart { background: linear-gradient(135deg, #FF6B6B, #FF8E8E); color: white; }
+        .summary-icon.pressure { background: linear-gradient(135deg, #4ECDC4, #6FE7DD); color: white; }
+        .summary-icon.records { background: linear-gradient(135deg, #87CEEB, #5DADE2); color: white; }
+        .summary-icon.trend { background: linear-gradient(135deg, #95E1D3, #B8F3E9); color: white; }
+
+        .summary-content h4 {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .summary-period {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .reports-charts {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .eq-card .chart-container { height: 320px; }
+
+        .insights-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .insights-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .insight-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem;
+            border-radius: 12px;
+            border-left: 4px solid;
+        }
+
+        .insight-card.success { background: #F0FFF4; border-color: #48BB78; }
+        .insight-card.info { background: #EBF8FF; border-color: #4299E1; }
+        .insight-card.tip { background: #FFFAF0; border-color: #F6AD55; }
+        .insight-card.trend { background: #F0F9FF; border-color: #87CEEB; }
+
+        .insight-card i {
+            font-size: 1.5rem;
+            margin-top: 0.25rem;
+        }
+
+        .insight-card.success i { color: #48BB78; }
+        .insight-card.info i { color: #4299E1; }
+        .insight-card.tip i { color: #F6AD55; }
+        .insight-card.trend i { color: #87CEEB; }
+
+        .insight-card p {
+            margin: 0;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Doctor Suggestions Styling */
+        .suggestions-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .doctor-suggestion-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            border-left: 4px solid #4ECDC4;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .doctor-suggestion-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .suggestion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .doctor-info {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .doctor-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.75rem;
+            flex-shrink: 0;
+        }
+
+        .doctor-details h4 {
+            margin: 0 0 0.25rem 0;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .doctor-details .specialization {
+            margin: 0 0 0.5rem 0;
+            color: #4ECDC4;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .doctor-details .contact {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .doctor-details .contact a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .doctor-details .contact a:hover {
+            text-decoration: underline;
+        }
+
+        .appointment-badge {
+            background: #F0F9FF;
+            color: #0369A1;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .suggestion-body {
+            margin-bottom: 1rem;
+        }
+
+        .appointment-type {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: #FFF7ED;
+            border-radius: 8px;
+            color: #C2410C;
+            font-weight: 500;
+        }
+
+        .suggestion-content h5 {
+            margin: 0 0 0.75rem 0;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .suggestion-content p {
+            margin: 0;
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .suggestion-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .prescribed-date {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-icon {
+            background: none;
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .btn-icon:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .empty-state.error {
+            color: #DC2626;
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .filter-controls select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* Tabs Styling */
+        .appointments-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .search-box input {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            width: 300px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+        }
+
+        .suggestion-preview {
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .reports-charts {
+                grid-template-columns: 1fr;
+            }
+
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

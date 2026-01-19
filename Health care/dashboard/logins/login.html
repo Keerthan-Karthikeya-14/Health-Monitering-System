@@ -3,10 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="login.css" class="css">
+    <title>Health Monitering System</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="https://res.cloudinary.com/dwren15bt/image/upload/v1753809560/Black_and_Red_Modern_Health_Logo_gpmpbl.png" alt="Logo">
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="loginbox">
+            <h1 class="loginheading">Welcome to Health Monitering System</h1>
+            <form id="loginForm" autocomplete="off">
+                <!-- Username -->
+                <div class="input-box">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="username" placeholder="Username" required>
+                </div>
+                <!-- Password -->
+                <div class="input-box">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <i class="fa-solid fa-eye" id="togglePassword"></i>
+                </div>
+                <br><br>
+                <a href="#" class="forgetbutton">forget password</a>
+                <!-- Buttons -->
+                <div class="loginbuttons">
+                    <input class="loginbutton1" type="button" value="Register" id="registerBtn">
+                    <input class="loginbutton2" type="submit" value="Login">
+                </div>
+                <!-- Google Login Button (inside form for accessibility) -->
+                <div class="google-login">
+                    <button type="button" id="googleSignInBtn" class="google-btn">
+                        <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google" class="google-icon">
+                        Continue with Google
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Firebase Auth and Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+        import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCZu4G2GCxKfoswOsOLV35qOrtkfd98_JQ",
+            authDomain: "email-login-cfaff.firebaseapp.com",
+            projectId: "email-login-cfaff",
+            storageBucket: "email-login-cfaff.appspot.com",
+            messagingSenderId: "518745168447",
+            appId: "1:518745168447:web:ee9a112636251b1dae368a",
+            databaseURL: "https://email-login-cfaff-default-rtdb.firebaseio.com"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        // Register
+        document.getElementById('registerBtn').addEventListener("click", function(event) {
+            event.preventDefault();
+            const email = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    alert("Account created successfully!");
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        });
+
+        // Login
+        document.getElementById('loginForm').addEventListener("submit", function(event) {
+            event.preventDefault();
+            const email = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert("Login successful!");
+                    // window.location.href = "dashboard.html";
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        });
+
+        // Google Sign-In
+        const provider = new GoogleAuthProvider();
+        document.getElementById('googleSignInBtn').addEventListener('click', async function () {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                const userRef = ref(db, 'users/' + user.uid);
+                const snapshot = await get(userRef);
+                if (!snapshot.exists()) {
+                    await set(userRef, {
+                        uid: user.uid,
+                        displayName: user.displayName,
+                        email: user.email,
+                        photoURL: user.photoURL,
+                        provider: "google"
+                    });
+                }
+                alert("Google sign-in successful!");
+                // window.location.href = "dashboard.html";
+            } catch (error) {
+                alert('Google sign-in failed: ' + error.message);
+            }
+        });
+
+        // Password Eye Toggle
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
 </body>
 </html>
