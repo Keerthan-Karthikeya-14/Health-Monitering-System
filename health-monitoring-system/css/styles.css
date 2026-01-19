@@ -1,0 +1,295 @@
+/* ===== Main Stylesheet ===== */
+/* This file imports all other CSS files in the correct order */
+
+/* 1. Variables and Custom Properties */
+@import 'variables.css';
+
+/* 2. Base Styles and Utilities */
+@import 'main.css';
+
+/* 3. Component Styles */
+@import 'components.css';
+
+/* 4. Animations */
+@import 'animations.css';
+
+/* 5. Responsive Styles (must come last) */
+@import 'responsive.css';
+
+/* ===== Custom Scrollbar ===== */
+/* For WebKit browsers (Chrome, Safari, newer versions of Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-lighter);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dark-blue);
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-blue) var(--bg-lighter);
+}
+
+/* ===== Print Styles ===== */
+@media print {
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+
+  body {
+    background: white;
+    color: black;
+    font-size: 12pt;
+    line-height: 1.3;
+  }
+
+  .no-print,
+  .navbar,
+  .sidebar,
+  .bottom-nav,
+  .fab-container,
+  .chart-actions,
+  .appointment-actions,
+  .search-container,
+  .user-avatar,
+  .notification-bell {
+    display: none !important;
+  }
+
+  .main-content {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  .metric-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border: 1px solid #eee !important;
+    box-shadow: none !important;
+    margin-bottom: 1cm;
+  }
+
+  .stats-grid {
+    display: block !important;
+  }
+
+  .stats-grid .metric-card {
+    margin-bottom: 1cm;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+
+  img, tr, svg {
+    page-break-inside: avoid;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+
+  a {
+    text-decoration: none !important;
+    color: #000 !important;
+  }
+
+  .btn {
+    display: none !important;
+  }
+}
+
+/* ===== High Contrast Mode ===== */
+@media (prefers-contrast: high) {
+  :root {
+    --text-dark: #000;
+    --text-gray: #333;
+    --bg-white: #fff;
+    --bg-light: #f0f0f0;
+    --bg-lighter: #e0e0e0;
+    --primary-blue: #0066cc;
+    --dark-blue: #004d99;
+    --success: #008000;
+    --warning: #ff8c00;
+    --error: #ff0000;
+  }
+
+  * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  .metric-card {
+    border: 2px solid #000 !important;
+  }
+
+  .btn, button, [role="button"] {
+    border: 2px solid currentColor !important;
+    outline: 2px solid transparent !important;
+    outline-offset: 2px !important;
+  }
+
+  input, select, textarea, [role="textbox"] {
+    border: 2px solid #000 !important;
+    background-color: #fff !important;
+    color: #000 !important;
+  }
+
+  a:focus, button:focus, input:focus, select:focus, textarea:focus {
+    outline: 3px solid #000 !important;
+    outline-offset: 2px;
+  }
+
+  .nav-item.active {
+    border: 2px solid #000 !important;
+    background: #e0e0e0 !important;
+  }
+}
+
+/* ===== Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-fade-in,
+  .animate-slide-in-left,
+  .animate-slide-in-right,
+  .animate-scale-in,
+  .animate-pulse,
+  .animate-float,
+  .animate-bounce,
+  .animate-spin,
+  .heartbeat,
+  .progress-animate {
+    animation: none !important;
+  }
+
+  .hover-scale:hover,
+  .hover-lift:hover {
+    transform: none !important;
+  }
+}
+
+/* ===== Dark Mode Overrides ===== */
+/* These styles will override the dark mode media query for elements that need special handling */
+[data-theme="dark"] {
+  --bg-white: #1e1e2d;
+  --bg-light: #2a2a3c;
+  --bg-lighter: #323248;
+  --text-dark: #e1e1ff;
+  --text-gray: #a1a1b5;
+  --text-light: #7e8299;
+  --primary-blue: #4d7cff;
+  --dark-blue: #3a6bff;
+  --soft-teal: #5d9cec;
+  --success: #50cd89;
+  --warning: #ffc700;
+  --error: #f1416c;
+  --info: #7239ea;
+  --glass-bg: rgba(30, 30, 45, 0.8);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] {
+  --primary-blue: #4A90E2;
+  --sky-blue: #87CEEB;
+  --dark-blue: #2E86DE;
+  --soft-teal: #5DADE2;
+  --bg-white: #FFFFFF;
+  --bg-light: #F5F7FA;
+  --bg-lighter: #EFF2F7;
+  --text-dark: #2C3E50;
+  --text-gray: #7F8C8D;
+  --text-light: #95A5A6;
+  --success: #27AE60;
+  --warning: #F39C12;
+  --error: #E74C3C;
+  --info: #3498DB;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+}
+
+/* ===== Custom Element Styles ===== */
+/* Add any additional custom styles or overrides below this line */
+
+/* Custom focus styles for better accessibility */
+:focus-visible {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Hide focus styles for mouse users, show for keyboard navigation */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Custom selection color */
+::selection {
+  background-color: var(--primary-blue);
+  color: white;
+}
+
+/* Custom placeholder text color */
+::placeholder {
+  color: var(--text-light);
+  opacity: 1;
+}
+
+/* Custom styles for disabled elements */
+:disabled,
+[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Custom styles for required form fields */
+:required {
+  border-left: 2px solid var(--primary-blue);
+}
+
+/* Custom styles for invalid form fields */
+:invalid {
+  border-color: var(--error);
+}
+
+/* Custom styles for valid form fields */
+:valid {
+  border-color: var(--success);
+}
+
+/* Custom styles for the print button (hidden by default, shown in print media query) */
+.print-button {
+  display: none;
+}
+
+@media print {
+  .print-button {
+    display: none !important;
+  }
+}

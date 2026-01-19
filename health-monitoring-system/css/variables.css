@@ -1,0 +1,77 @@
+/* ===== Color Variables ===== */
+:root {
+  /* Primary Palette */
+  --primary-blue: #4A90E2;
+  --sky-blue: #87CEEB;
+  --dark-blue: #2E86DE;
+  --soft-teal: #5DADE2;
+  
+  /* Backgrounds */
+  --bg-white: #FFFFFF;
+  --bg-light: #F5F7FA;
+  --bg-lighter: #EFF2F7;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  
+  /* Text */
+  --text-dark: #2C3E50;
+  --text-gray: #7F8C8D;
+  --text-light: #95A5A6;
+  
+  /* Status Colors */
+  --success: #27AE60;
+  --warning: #F39C12;
+  --error: #E74C3C;
+  --info: #3498DB;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #4A90E2 0%, #5DADE2 100%);
+  --gradient-success: linear-gradient(135deg, #27AE60 0%, #2ECC71 100%);
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+  --shadow-neumorphic: 8px 8px 16px rgba(0, 0, 0, 0.1), -8px -8px 16px rgba(255, 255, 255, 0.7);
+  
+  /* Transitions */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+  
+  /* Spacing */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-mono: 'SF Mono', 'Roboto Mono', Menlo, monospace;
+  
+  /* Z-index */
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-fixed: 30;
+  --z-modal: 40;
+  --z-popover: 50;
+  --z-tooltip: 60;
+  
+  /* Layout */
+  --header-height: 64px;
+  --sidebar-width: 240px;
+  --sidebar-collapsed-width: 60px;
+  --bottom-nav-height: 56px;
+  --container-padding: 24px;
+}
